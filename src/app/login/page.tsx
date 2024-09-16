@@ -1,7 +1,9 @@
-import { login, signup } from './actions'
+import { login, signup } from "./actions";
+import GoogleAuth from "./google";
 
-export default function LoginPage() {
+export default function Login() {
   return (
+  <>
     <form>
       <label htmlFor="email">Email:</label>
       <input id="email" name="email" type="email" required />
@@ -10,5 +12,7 @@ export default function LoginPage() {
       <button formAction={login}>Log in</button>
       <button formAction={signup}>Sign up</button>
     </form>
-  )
+    <GoogleAuth></GoogleAuth>
+  </>
+  );
 }
