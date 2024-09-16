@@ -4,15 +4,22 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build.icons": "rm -rf ./public/svg && iconsauce --verbose --output-svg ./public/svg",
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
   },
   "dependencies": {
+    "@iconsauce/core": "1.2.5",
+    "@maggioli-design-system/mds-icon": "2.10.4",
+    "@maggioli-design-system/mds-text": "4.4.1",
+    "@maggioli-design-system/styles": "15.3.1",
     "@t3-oss/env-nextjs": "0.11.1",
+    "autoprefixer": "10.4.20",
     "geist": "1.3.1",
     "next": "14.2.11",
+    "postcss-import": "16.1.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "zod": "3.23.8"
