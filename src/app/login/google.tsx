@@ -5,6 +5,21 @@ import { useRouter } from "next/navigation";
 import Script from "next/script";
 import { Fragment, useEffect } from "react";
 
+function handleSignInWithGoogle(response: GoogleOAuthCredentialResponse): void {
+  const supabase = createClient()
+  supabase.auth.signInWithIdToken({
+    provider: 'google',
+    token: response.credential,
+  }).then(({data, error}) => {
+    if(error) {
+      console.error('Errore autenticazione:', error)
+    }
+    if(data.user) {
+      window.location.href = origin
+    }
+  }).catch(err => console.error(err))
+}
+
 export default function GoogleAuth() {
 
   useEffect(() => {
@@ -53,16 +68,4 @@ export default function GoogleAuth() {
     <button onClick={signInWithGoogle}>Accedi con google</button>
   </Fragment>
   )
-}
-
-
-export async function handleSignInWithGoogle(response: { credential: string; }): Promise<void> {
-  console.log('pippo')
-  console.log(response)
-  const supabase = createClient()
-  const { data, error } = await supabase.auth.signInWithIdToken({
-    provider: 'google',
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    token: response.credential,
-  })
 }
