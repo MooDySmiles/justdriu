@@ -2,9 +2,14 @@
 
 import { createClient } from "@utils/supabase/client";
 import { useRouter } from "next/navigation";
-import { Fragment } from "react";
+import Script from "next/script";
+import { Fragment, useEffect } from "react";
 
 export default function GoogleAuth() {
+
+  useEffect(() => {
+    window.handleSignInWithGoogle = handleSignInWithGoogle;
+  },[])
 
   const router = useRouter()
     async function signInWithGoogle() {
@@ -26,13 +31,14 @@ export default function GoogleAuth() {
     }
   return (
     <Fragment>
-    {/* <Script src="https://accounts.google.com/gsi/client" async></Script>
+    <Script src="https://accounts.google.com/gsi/client" async></Script>
     <div
       id="g_id_onload"
       data-client_id="860156113416-1modms9v74p4hcrck6rtadofad329p2b.apps.googleusercontent.com"
-      data-context="signup"
+      data-context="signin"
       data-ux_mode="popup"
-      data-login_uri="https://ejwhngenrurroedqfeji.supabase.co/auth/v1/callback"
+      // data-login_uri="https://ejwhngenrurroedqfeji.supabase.co/auth/v1/callback"
+      data-callback="handleSignInWithGoogle"
       data-nonce=""
     ></div>
     <div
@@ -43,8 +49,20 @@ export default function GoogleAuth() {
       data-text="signin_with"
       data-size="large"
       data-logo_alignment="left"
-    ></div> */}
+    ></div>
     <button onClick={signInWithGoogle}>Accedi con google</button>
   </Fragment>
   )
+}
+
+
+export async function handleSignInWithGoogle(response: { credential: string; }): Promise<void> {
+  console.log('pippo')
+  console.log(response)
+  const supabase = createClient()
+  const { data, error } = await supabase.auth.signInWithIdToken({
+    provider: 'google',
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    token: response.credential,
+  })
 }

@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import { createClient } from "@utils/supabase/client";
 
 export const metadata: Metadata = {
   title: "Just Driù",
