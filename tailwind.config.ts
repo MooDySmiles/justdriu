@@ -1,14 +1,13 @@
 import { type Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
-  content: ["./src/**/*.tsx"],
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ["var(--font-geist-sans)", ...fontFamily.sans],
-      },
-    },
-  },
+  content: [
+    "./src/**/*.tsx",
+    "./node_modules/@maggioli-design-system/**/*.{js,jsx,ts,tsx}",
+  ],
+  presets: [
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    require("@maggioli-design-system/styles"),
+  ],
   plugins: [],
 } satisfies Config;
