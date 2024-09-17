@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "build.icons": "rm -rf ./public/svg && iconsauce --verbose --output-svg ./public/svg",
+    "prebuild": "npm run build.icons",
     "build": "next build",
+    "predev": "npm run build.icons",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
