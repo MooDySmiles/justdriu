@@ -1,7 +1,6 @@
 'use client';
 
 import { createClient } from "@utils/supabase/client";
-import { useRouter } from "next/navigation";
 import Script from "next/script";
 import { Fragment, useEffect } from "react";
 
@@ -26,24 +25,6 @@ export default function GoogleAuth() {
     window.handleSignInWithGoogle = handleSignInWithGoogle;
   },[])
 
-  const router = useRouter()
-    async function signInWithGoogle() {
-      const supabase = createClient();
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${origin}/api/auth/callback`,
-        },
-      });
-      if (error) {
-        console.error(error);
-        // Handle error appropriately
-        return;
-      }
-      if (data?.url) {
-        return router.push(data.url);
-      }
-    }
   return (
     <Fragment>
     <Script src="https://accounts.google.com/gsi/client" async></Script>
@@ -65,7 +46,6 @@ export default function GoogleAuth() {
       data-size="large"
       data-logo_alignment="left"
     ></div>
-    <button onClick={signInWithGoogle}>Accedi con google</button>
   </Fragment>
   )
 }
