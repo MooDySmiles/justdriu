@@ -2,7 +2,6 @@
   "name": "justdriu",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "build.icons": "rm -rf ./public/svg && iconsauce --verbose --output-svg ./public/svg",
     "build": "next build",
