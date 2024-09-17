@@ -1,7 +1,6 @@
 import "@/styles/globals.css";
 
 import { type Metadata } from "next";
-import { createClient } from "@utils/supabase/client";
 
 export const metadata: Metadata = {
   title: "Just Driù",

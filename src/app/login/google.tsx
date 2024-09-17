@@ -30,10 +30,9 @@ export default function GoogleAuth() {
     <Script src="https://accounts.google.com/gsi/client" async></Script>
     <div
       id="g_id_onload"
-      data-client_id="860156113416-1modms9v74p4hcrck6rtadofad329p2b.apps.googleusercontent.com"
+      data-client_id={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
       data-context="signin"
       data-ux_mode="popup"
-      // data-login_uri="https://ejwhngenrurroedqfeji.supabase.co/auth/v1/callback"
       data-callback="handleSignInWithGoogle"
       data-nonce=""
     ></div>
