@@ -17,6 +17,7 @@ db.sqlite
 /.next/
 /out/
 next-env.d.ts
+/public/svg/
 
 # production
 /build
@@ -44,3 +45,6 @@ yarn-error.log*
 
 # idea files
 .idea
+
+# vscode
+.vscode
