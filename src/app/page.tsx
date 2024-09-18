@@ -12,7 +12,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="flex p-400">
+    <main className="flex flex-wrap gap-x-400 p-400">
       <mds-text>Questa è la mia prima app pubblicata su Vercel integrata col design system Magma</mds-text>
       <mds-icon name="mi/outline/arrow-back" />
     </main>
