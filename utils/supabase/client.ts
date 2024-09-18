@@ -1,4 +1,4 @@
-import { createBrowserClient } from '@supabase/ssr'
+import { createBrowserClient } from "@supabase/ssr";
 
 export function createClient() {
   // Create a supabase client on the browser with project's credentials
@@ -7,8 +7,8 @@ export function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       auth: {
-      flowType: 'pkce',
+        flowType: "pkce",
       },
-    }
-  )
+    },
+  );
 }
