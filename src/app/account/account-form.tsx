@@ -1,81 +1,83 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-'use client'
-import { useCallback, useEffect, useState } from 'react'
-import { createClient } from '@utils/supabase/client'
-import { type User } from '@supabase/supabase-js'
+"use client";
+import { useCallback, useEffect, useState } from "react";
+import { createClient } from "@utils/supabase/client";
+import { type User } from "@supabase/supabase-js";
 
 export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
-  const supabase = createClient()
-  const [loading, setLoading] = useState(true)
-  const [fullname, setFullname] = useState<string | null>(null)
-  const [username, setUsername] = useState<string | null>(null)
-  const [website, setWebsite] = useState<string | null>(null)
-  const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
+  const supabase = createClient();
+  const [loading, setLoading] = useState(true);
+  const [fullname, setFullname] = useState<string | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
+  const [website, setWebsite] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   const getProfile = useCallback(async () => {
     try {
-      setLoading(true)
+      setLoading(true);
 
       const { data, error, status } = await supabase
-        .from('profiles')
+        .from("profiles")
         .select(`full_name, username, website, avatar_url`)
-        .eq('id', user?.id)
-        .single()
+        .eq("id", user?.id)
+        .single();
 
       if (error && status !== 406) {
-        console.log(error)
-        throw new Error(error.message)
+        console.log(error);
+        throw new Error(error.message);
       }
 
       if (data) {
-        setFullname(data.full_name)
-        setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
+        setFullname(data.full_name);
+        setUsername(data.username);
+        setWebsite(data.website);
+        setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      console.log('Error loading user data!', error)
+      console.log("Error loading user data!", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [user, supabase])
+  }, [user, supabase]);
 
   useEffect(() => {
     async function profile() {
       // You can await here
-      return await getProfile()
+      return await getProfile();
       // ...
     }
-    profile().catch((err) => {throw new Error(err as string)})
-  }, [user, getProfile])
+    profile().catch((err) => {
+      throw new Error(err as string);
+    });
+  }, [user, getProfile]);
 
   async function updateProfile({
     username,
     website,
     avatar_url,
   }: {
-    username: string | null
-    fullname: string | null
-    website: string | null
-    avatar_url: string | null
+    username: string | null;
+    fullname: string | null;
+    website: string | null;
+    avatar_url: string | null;
   }) {
     try {
-      setLoading(true)
+      setLoading(true);
 
-      const { error } = await supabase.from('profiles').upsert({
+      const { error } = await supabase.from("profiles").upsert({
         id: user?.id,
         full_name: fullname,
         username,
         website,
         avatar_url,
         updated_at: new Date().toISOString(),
-      })
-      if (error) throw new Error(error.message)
-      console.log('Profile updated!')
+      });
+      if (error) throw new Error(error.message);
+      console.log("Profile updated!");
     } catch (error) {
-      console.log('Error updating the data!', error)
+      console.log("Error updating the data!", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -90,7 +92,7 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
         <input
           id="fullName"
           type="text"
-          value={fullname ?? ''}
+          value={fullname ?? ""}
           onChange={(e) => setFullname(e.target.value)}
         />
       </div>
@@ -99,7 +101,7 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
         <input
           id="username"
           type="text"
-          value={username ?? ''}
+          value={username ?? ""}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
@@ -108,7 +110,7 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
         <input
           id="website"
           type="url"
-          value={website ?? ''}
+          value={website ?? ""}
           onChange={(e) => setWebsite(e.target.value)}
         />
       </div>
@@ -116,10 +118,17 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
       <div>
         <button
           className="button primary block"
-          onClick={() => updateProfile({ fullname, username, website, avatar_url: avatarUrl })}
+          onClick={() =>
+            updateProfile({
+              fullname,
+              username,
+              website,
+              avatar_url: avatarUrl,
+            })
+          }
           disabled={loading}
         >
-          {loading ? 'Loading ...' : 'Update'}
+          {loading ? "Loading ..." : "Update"}
         </button>
       </div>
 
@@ -131,5 +140,5 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
         </form>
       </div>
     </div>
-  )
+  );
 }

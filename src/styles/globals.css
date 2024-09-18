@@ -1,4 +1,4 @@
-@import '@maggioli-design-system/styles/dist/css/colors-rgb.css';
+@import "@maggioli-design-system/styles/dist/css/colors-rgb.css";
 
 @tailwind base;
 @tailwind components;
