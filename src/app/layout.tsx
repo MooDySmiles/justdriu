@@ -21,10 +21,10 @@ export default async function RootLayout({
 
   return (
     <html lang="it">
-      <body className="m-0">
-        <div className="flex flex-col mobile:flex-col-reverse">
+      <body className="m-0 h-screen">
+        <div className="flex flex-col h-full mobile:flex-col-reverse">
           {user ? <ControlBar /> : ""}
-          <main>{children}</main>
+          <main className="flex-grow">{children}</main>
         </div>
       </body>
     </html>
