@@ -8,8 +8,12 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import '@fontsource/roboto/900.css';
 
+import { defineCustomElements as dceMdsAvatar } from "@maggioli-design-system/mds-avatar/loader";
 import { defineCustomElements as dceMdsIcon } from "@maggioli-design-system/mds-icon/loader";
+import { defineCustomElements as dceMdsImg } from "@maggioli-design-system/mds-img/loader";
 import { defineCustomElements as dceMdsText } from "@maggioli-design-system/mds-text/loader";
 
+dceMdsAvatar();
 dceMdsIcon();
+dceMdsImg();
 dceMdsText();
