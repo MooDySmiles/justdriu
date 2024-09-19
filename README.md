@@ -13,6 +13,8 @@ npx supabase start // La prima volta richiede un po' di tempo
 ```
 npx supabase db dump --db-url "$REMOTE_DB_URL" -f roles.sql --role-only
 npx supabase db dump --db-url "$REMOTE_DB_URL" -f schema.sql
+npx supabase db dump --db-url "$REMOTE_DB_URL" -f auth.sql --schema auth
+
 // aggiungere la seguente riga se si vuole importare anche i dati
 npx supabase db dump --db-url "$REMOTE_DB_URL" -f data.sql --use-copy --data-only
 ```
@@ -24,6 +26,7 @@ psql \
   --variable ON_ERROR_STOP=1 \
   --file roles.sql \
   --file schema.sql \
+  --file auth.sql \
   --dbname "$LOCAL_DB_URL"
 
 // se si vuole importare anche i dati eseguire
@@ -32,6 +35,7 @@ psql \
   --variable ON_ERROR_STOP=1 \
   --file roles.sql \
   --file schema.sql \
+  --file auth.sql \
   --command 'SET session_replication_role = replica' \
   --file data.sql \
   --dbname "$LOCAL_DB_URL"
