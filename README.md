@@ -43,6 +43,24 @@ psql \
 
 Nota: LOCAL_DB_URL viene notificato allo start di supabase e dovrebbe coincidere con `postgresql://postgres:postgres@127.0.0.1:54322/postgres`
 
+- settare le seguenti variabili nel file `.env` che non viene versionato
+ ```
+NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon_key_local_supabase>
+// per l'autenticazione google
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=<google_client_id>
+SUPABASE_AUTH_GOOGLE_SECRET=<google_secret>
+ ```
+
+Nota: anon_key_local_supabase viene fornito dopo l'avvio di supabase
+
+- per rendere effettive le modifiche delle variabili riavviare supabase
+
+```
+npx supabase stop
+npx supabase start
+```
+
 ## Autenticazione
 
 L'autenticazione degli utenti è gestita tramite Supabase che offre la possibilità di effettuare la login attraverso:
