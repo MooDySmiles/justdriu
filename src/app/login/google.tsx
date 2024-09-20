@@ -3,6 +3,7 @@
 import { createClient } from "@utils/supabase/client";
 import Script from "next/script";
 import { Fragment, useEffect } from "react";
+import { type GoogleOAuthCredentialResponse } from "types/google";
 
 function handleSignInWithGoogle(response: GoogleOAuthCredentialResponse): void {
   const supabase = createClient();
