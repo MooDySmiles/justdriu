@@ -4,3 +4,16 @@ export type SupabaseUser = {
   website?: string;
   avatar_url?: string;
 };
+
+export type JDOrder = {
+  date: string;
+  dueTime: string;
+  items: JDItem[];
+  coordinator: string;
+};
+
+export type JDItem = {
+  name: string;
+  ingredients: string[];
+  price: number;
+};
