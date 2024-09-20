@@ -2,6 +2,6 @@ export {};
 
 declare global {
   interface Window {
-    handleSignInWithGoogle: (response: GoogleOAuthCredentialResponse) => void;
+    handleSignInWithGoogle: (response: GoogleOAuthCredentialResponse) => Promise<void>;
   }
 }
