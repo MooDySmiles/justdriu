@@ -48,3 +48,6 @@ yarn-error.log*
 
 # vscode
 .vscode
+
+// Initialization file
+init.sh
