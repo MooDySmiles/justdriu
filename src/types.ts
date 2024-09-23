@@ -14,6 +14,7 @@ export type JDOrder = {
 };
 
 export type JDItem = {
+  id: string;
   name: string;
   ingredients: string[];
   price: number;

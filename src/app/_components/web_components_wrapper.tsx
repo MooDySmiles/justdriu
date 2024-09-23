@@ -1,6 +1,6 @@
 "use client";
 
-import "@/utils/mds-components";
+import "@/utils/mds_components";
 import { useEffect } from "react";
 
 export default function WebComponentsWrapper({

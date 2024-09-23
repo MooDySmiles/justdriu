@@ -2,7 +2,7 @@ import { type JDOrder } from "@/types";
 
 export default function OrderCard({ order }: { order: JDOrder }) {
   return (
-    <mds-card class="w-5600 bg-tone-neutral-10" autoGrid>
+    <mds-card class="w-5600 mobile:w-4000 bg-tone-neutral-10" autoGrid>
       <mds-card-content class="flex flex-col items-start justify-between gap-y-300 p-600">
         <mds-text class="self-center" typography={"h3"} variant={"title"}>
           {order.date}

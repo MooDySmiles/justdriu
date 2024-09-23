@@ -46,8 +46,15 @@ export async function updateSession(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
-  } else if (user && request.nextUrl.pathname === "/") {
-    // user trying to navigate root path, redirect to /dashboard
+  } else if (
+    user &&
+    (request.nextUrl.pathname === "/" ||
+      request.nextUrl.pathname.startsWith("/login"))
+  ) {
+    // user trying to navigate root path or login page when already logged, redirect to /dashboard
+    console.log(
+      "User trying to navigate root path or login page when already logged, redirecting to /dashboard",
+    );
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);

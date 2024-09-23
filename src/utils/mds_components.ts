@@ -13,6 +13,7 @@ import { defineCustomElements as dceMdsCardContent } from "@maggioli-design-syst
 import { defineCustomElements as dceMdsCardFooter } from "@maggioli-design-system/mds-card-footer/loader";
 import { defineCustomElements as dceMdsCardHeader } from "@maggioli-design-system/mds-card-header/loader";
 import { defineCustomElements as dceMdsCard } from "@maggioli-design-system/mds-card/loader";
+import { defineCustomElements as dceMdsHr } from "@maggioli-design-system/mds-hr/loader";
 import { defineCustomElements as dceMdsIcon } from "@maggioli-design-system/mds-icon/loader";
 import { defineCustomElements as dceMdsImg } from "@maggioli-design-system/mds-img/loader";
 import { defineCustomElements as dceMdsText } from "@maggioli-design-system/mds-text/loader";
@@ -22,6 +23,7 @@ dceMdsCard();
 dceMdsCardContent();
 dceMdsCardFooter();
 dceMdsCardHeader();
+dceMdsHr();
 dceMdsIcon();
 dceMdsImg();
 dceMdsText();
