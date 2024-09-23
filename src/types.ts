@@ -6,6 +6,7 @@ export type SupabaseUser = {
 };
 
 export type JDOrder = {
+  id: string;
   date: string;
   dueTime: string;
   items: JDItem[];
