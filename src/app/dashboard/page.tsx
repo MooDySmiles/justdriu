@@ -1,10 +1,19 @@
+import OrderCard from "@/app/_components/order_card";
+import { orders } from "@/utils/temp_orders";
+import Link from "next/link";
+
 export default function DashboardPage() {
   return (
-    <div className="flex p-600 text-center">
-      <mds-text>
-        Questa è la mia prima app pubblicata su Vercel integrata col design
-        system Magma
-      </mds-text>
+    <div className="flex flex-wrap mobile:justify-between tablet:gap-x-600 gap-y-600">
+      {orders.map((order) => (
+        <Link
+          key={order.id}
+          href={`dashboard/order/${order.id}`}
+          className="text-inherit no-underline"
+        >
+          <OrderCard order={order} />
+        </Link>
+      ))}
     </div>
   );
 }

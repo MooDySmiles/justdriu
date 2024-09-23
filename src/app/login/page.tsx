@@ -1,6 +1,6 @@
 "use client";
 
-import "@/utils/mds-components";
+import "@/utils/mds_components";
 
 import GoogleAuth from "./google";
 

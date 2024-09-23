@@ -14,6 +14,8 @@
   "dependencies": {
     "@iconsauce/core": "1.2.5",
     "@maggioli-design-system/mds-avatar": "3.11.2",
+    "@maggioli-design-system/mds-card": "4.4.2",
+    "@maggioli-design-system/mds-hr": "2.8.2",
     "@maggioli-design-system/mds-icon": "2.10.5",
     "@maggioli-design-system/mds-text": "4.4.2",
     "@maggioli-design-system/styles": "15.3.2",
