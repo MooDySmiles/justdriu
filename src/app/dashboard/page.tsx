@@ -1,8 +1,10 @@
 import OrderCard from "@/components/order_card";
-import { orders } from "@/utils/temp_orders";
+import { getMyOrders } from "@/server/orders";
 import Link from "next/link";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const orders = await getMyOrders();
+  
   return (
     <>
       <div className="flex flex-wrap gap-y-600 mobile:justify-between tablet:gap-x-600">
