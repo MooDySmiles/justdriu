@@ -1,4 +1,4 @@
-import OrderCard from "@/app/_components/order_card";
+import OrderCard from "@/components/order_card";
 import { orders } from "@/utils/temp_orders";
 import Link from "next/link";
 

@@ -12,10 +12,10 @@ export default function NewOrderPage() {
       <mds-hr />
       <div className="flex gap-x-400 self-end">
         <Link href={"/dashboard"}>
-          <mds-button class="bg-tone-grey-05">Annulla</mds-button>
+          <mds-button class="bg-tone-grey-05" type={"button"}>Annulla</mds-button>
         </Link>
         {/* TODO Server action here? */}
-        <mds-button class="bg-[#72D800]">Salva</mds-button>
+        <mds-button class="bg-[#72D800]" type={"submit"}>Salva</mds-button>
       </div>
     </form>
   );

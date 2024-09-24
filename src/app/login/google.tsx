@@ -1,7 +1,6 @@
 "use client";
 
 import { createClient } from "@utils/supabase/client";
-import { useRouter } from "next/router";
 import Script from "next/script";
 import { Fragment, useEffect } from "react";
 import { type GoogleOAuthCredentialResponse } from "types/google";
