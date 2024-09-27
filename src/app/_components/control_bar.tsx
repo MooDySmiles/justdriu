@@ -4,29 +4,15 @@ import { createClient } from "@utils/supabase/client";
 import { useEffect, useState } from "react";
 import { logout } from "@/app/_actions/logout";
 import { type Tables } from "types/database";
+import { getUserProfile } from "@utils/supabase/api/user";
 
 export function ControlBar() {
   const [sbUser, setSbUser] = useState<Tables<'profiles'>>();
 
   const supabase = createClient();
 
-  const getUser = () => {
-    return supabase.auth.getUser();
-  };
-
   const getSbUser = async () => {
-    const {
-      data: { user },
-    } = await getUser();
-
-    if (!user) return;
-
-    const { data } = await supabase
-      .from("profiles")
-      .select(`full_name, username, avatar_url`)
-      .eq("id", user.id)
-      .single<Tables<'profiles'>>();
-
+    const { data } = await getUserProfile(supabase)
     if (data) setSbUser(data);
   };
 

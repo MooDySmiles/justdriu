@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@utils/supabase/client";
 import { type User } from "@supabase/supabase-js";
 import { logout } from "../_actions/logout";
+import { updateUserProfile } from "@utils/supabase/api/user";
 
 export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
   const supabase = createClient();
@@ -66,13 +67,7 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
     try {
       setLoading(true);
 
-      const { error } = await supabase.from("profiles").upsert({
-        id: user!.id,
-        full_name: fullname,
-        username,
-        avatar_url,
-        updated_at: new Date().toISOString(),
-      });
+      const { error } = await updateUserProfile(supabase, {username, full_name: fullname, avatar_url})
       if (error) throw new Error(error.message);
       console.log("Profile updated!");
     } catch (error) {
