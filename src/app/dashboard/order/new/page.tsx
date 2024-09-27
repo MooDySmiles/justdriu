@@ -15,9 +15,7 @@ export default function NewOrderPage() {
         <Link href={"/dashboard"}>
           <mds-button class="bg-tone-grey-05" type={"button"}>Annulla</mds-button>
         </Link>
-        {/* TODO Server action here? */}
         <mds-button class="bg-[#72D800]">Salva</mds-button>
-        {/* <button type="submit">Salva</button> */}
       </div>
     </form>
   );
