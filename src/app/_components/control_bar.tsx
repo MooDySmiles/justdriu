@@ -1,12 +1,12 @@
 "use client";
 
-import { type SupabaseUser } from "@/types";
 import { createClient } from "@utils/supabase/client";
 import { useEffect, useState } from "react";
 import { logout } from "@/app/_actions/logout";
+import { type Tables } from "types/database";
 
 export function ControlBar() {
-  const [sbUser, setSbUser] = useState<SupabaseUser>();
+  const [sbUser, setSbUser] = useState<Tables<'profiles'>>();
 
   const supabase = createClient();
 
@@ -23,9 +23,9 @@ export function ControlBar() {
 
     const { data } = await supabase
       .from("profiles")
-      .select(`full_name, username, website, avatar_url`)
+      .select(`full_name, username, avatar_url`)
       .eq("id", user.id)
-      .single();
+      .single<Tables<'profiles'>>();
 
     if (data) setSbUser(data);
   };
@@ -42,8 +42,8 @@ export function ControlBar() {
           Esci
         </mds-text>
         <mds-avatar
-          src={sbUser?.avatar_url}
-          initials={sbUser?.full_name.substring(0, 1)}
+          src={sbUser?.avatar_url ?? ''}
+          initials={sbUser?.full_name?.substring(0, 1)}
           class="cursor-pointer"
         ></mds-avatar>
       </div>

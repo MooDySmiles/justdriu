@@ -1,7 +1,6 @@
 "use client";
 
 import { createClient } from "@utils/supabase/client";
-import { useRouter } from "next/router";
 import Script from "next/script";
 import { Fragment, useEffect } from "react";
 import { type GoogleOAuthCredentialResponse } from "types/google";
@@ -21,21 +20,6 @@ async function handleSignInWithGoogle(response: GoogleOAuthCredentialResponse) {
 
   console.info("Login con Google avvenuto con successo", data);
   window.location.href = origin;
-
-  // supabase.auth
-  //   .signInWithIdToken({
-  //     provider: "google",
-  //     token: response.credential,
-  //   })
-  //   .then(({ data, error }) => {
-  //     if (error) {
-  //       console.error("Errore autenticazione:", error);
-  //     }
-  //     if (data.user) {
-  //       window.location.href = origin;
-  //     }
-  //   })
-  //   .catch((err) => console.error(err));
 }
 
 export default function GoogleAuth() {
