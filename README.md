@@ -61,6 +61,23 @@ npx supabase stop
 npx supabase start
 ```
 
+## Migrazione Database
+Per modificare il db eseguire
+```
+npx supabase migration new <nome_migrazione>
+```
+Questo creerà un file `<datetime>_<nome_migrazione>.sql` nella cartella `supabase/migrations` in cui si definiscono le modifiche al db per esempio
+
+```
+ALTER TABLE "table"
+  ADD "column" text
+```
+
+Per applicare le modifiche del file inserito con 
+```
+npx supabase migration up --local
+```
+
 ## Autenticazione
 
 L'autenticazione degli utenti è gestita tramite Supabase che offre la possibilità di effettuare la login attraverso:
