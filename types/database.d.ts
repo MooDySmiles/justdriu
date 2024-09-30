@@ -140,24 +140,40 @@ export type Database = {
       }
       order: {
         Row: {
-          day: string | null
+          created_at: string | null
+          delivery_datetime: string | null
           end_hour: string | null
+          food_provider_id: number | null
           id: number
           organizer: string | null
+          updated_at: string | null
         }
         Insert: {
-          day?: string | null
+          created_at?: string | null
+          delivery_datetime?: string | null
           end_hour?: string | null
+          food_provider_id?: number | null
           id?: number
           organizer?: string | null
+          updated_at?: string | null
         }
         Update: {
-          day?: string | null
+          created_at?: string | null
+          delivery_datetime?: string | null
           end_hour?: string | null
+          food_provider_id?: number | null
           id?: number
           organizer?: string | null
+          updated_at?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "order_food_provider_id_fkey"
+            columns: ["food_provider_id"]
+            isOneToOne: false
+            referencedRelation: "food_provider"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "order_organizer_fkey"
             columns: ["organizer"]

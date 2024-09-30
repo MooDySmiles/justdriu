@@ -1,5 +1,5 @@
 import { type SupabaseClient } from '@supabase/supabase-js'
-import { Tables, TablesUpdate, type Database } from 'types/database'
+import { type TablesUpdate, type Database } from 'types/database'
 
 /**
  * If not id given the function return info of current users

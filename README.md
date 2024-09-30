@@ -62,7 +62,8 @@ npx supabase start
 ```
 
 ## Migrazione Database
-Per modificare il db eseguire
+Per modificare il db eseguire:
+
 ```
 npx supabase migration new <nome_migrazione>
 ```
@@ -76,6 +77,11 @@ ALTER TABLE "table"
 Per applicare le modifiche del file inserito con 
 ```
 npx supabase migration up --local
+```
+
+Generazione types post migrazione
+```
+npx supabase gen types typescript --local > types/database.d.ts
 ```
 
 ## Autenticazione
