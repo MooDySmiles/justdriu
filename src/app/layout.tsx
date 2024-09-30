@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import { type Metadata } from "next";
-import WebComponentsWrapper from "@/app/_components/web_components_wrapper";
+import WebComponentsWrapper from "@/components/web_components_wrapper";
 
 export const metadata: Metadata = {
   title: "Just Driù",

@@ -2,7 +2,7 @@
 
 import { createClient } from "@utils/supabase/client";
 import { useEffect, useState } from "react";
-import { logout } from "@/app/_actions/logout";
+import { logout } from "@/server/logout";
 import { type Tables } from "types/database";
 import { getUserProfile } from "@utils/supabase/api/user";
 

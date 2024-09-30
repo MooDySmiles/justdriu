@@ -13,11 +13,12 @@
   },
   "dependencies": {
     "@iconsauce/core": "1.2.5",
-    "@maggioli-design-system/mds-avatar": "3.11.2",
+    "@maggioli-design-system/mds-avatar": "3.11.3",
     "@maggioli-design-system/mds-card": "4.4.2",
     "@maggioli-design-system/mds-hr": "2.8.2",
     "@maggioli-design-system/mds-icon": "2.10.5",
-    "@maggioli-design-system/mds-text": "4.4.2",
+    "@maggioli-design-system/mds-input": "6.1.4",
+    "@maggioli-design-system/mds-text": "4.4.3",
     "@maggioli-design-system/styles": "15.3.2",
     "@supabase/ssr": "0.5.1",
     "@supabase/supabase-js": "2.45.4",
@@ -28,6 +29,7 @@
     "postcss-import": "16.1.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "server-only": "0.0.1",
     "zod": "3.23.8"
   },
   "devDependencies": {

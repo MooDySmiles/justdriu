@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@utils/supabase/client";
 import { type User } from "@supabase/supabase-js";
-import { logout } from "../_actions/logout";
+import { logout } from "../../server/logout";
 import { updateUserProfile } from "@utils/supabase/api/user";
 
 export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
