@@ -4,22 +4,27 @@ import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@utils/supabase/client";
 import { type User } from "@supabase/supabase-js";
 import { logout } from "../../server/logout";
+import { updateUserProfile } from "@utils/supabase/api/user";
 
 export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
   const [fullname, setFullname] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
-  const [website, setWebsite] = useState<string | null>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
 
   const getProfile = useCallback(async () => {
     try {
       setLoading(true);
 
+      if(!user) {
+        return (
+          <div> No User</div>
+        )
+      }
       const { data, error, status } = await supabase
         .from("profiles")
-        .select(`full_name, username, website, avatar_url`)
+        .select(`full_name, username, avatar_url`)
         .eq("id", user?.id)
         .single();
 
@@ -31,7 +36,6 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
       if (data) {
         setFullname(data.full_name);
         setUsername(data.username);
-        setWebsite(data.website);
         setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
@@ -54,25 +58,16 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
 
   async function updateProfile({
     username,
-    website,
     avatar_url,
   }: {
     username: string | null;
     fullname: string | null;
-    website: string | null;
     avatar_url: string | null;
   }) {
     try {
       setLoading(true);
 
-      const { error } = await supabase.from("profiles").upsert({
-        id: user?.id,
-        full_name: fullname,
-        username,
-        website,
-        avatar_url,
-        updated_at: new Date().toISOString(),
-      });
+      const { error } = await updateUserProfile(supabase, {username, full_name: fullname, avatar_url})
       if (error) throw new Error(error.message);
       console.log("Profile updated!");
     } catch (error) {
@@ -106,15 +101,6 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="url"
-          value={website ?? ""}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
 
       <div>
         <button
@@ -123,7 +109,6 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
             updateProfile({
               fullname,
               username,
-              website,
               avatar_url: avatarUrl,
             })
           }
