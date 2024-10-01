@@ -1,6 +1,5 @@
 "use client";
 
-import { type JDOrder } from "@/types";
 import { type Tables } from "types/database";
 
 export default function GenerateTextBtn({
@@ -8,7 +7,7 @@ export default function GenerateTextBtn({
   order,
 }: {
   user: Tables<"profile">;
-  order: JDOrder;
+  order: Tables<"command">;
 }) {
   const generateText = () => {
     console.warn("TODO testo comanda da inviare", user, order);

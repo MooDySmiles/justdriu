@@ -1,4 +1,4 @@
-import { getOrder } from "@/server/orders";
+import { getCommand } from "@/server/commands";
 import { getUserProfile } from "@utils/supabase/api/user";
 import { createClient } from "@utils/supabase/server";
 import Link from "next/link";
@@ -15,8 +15,15 @@ export default async function OrderPage({
 
   if (!user) throw new Error("Unauthorized");
 
-  // TODO retrieve orders from database
-  const order = await getOrder(orderId);
+  const order = await getCommand(orderId);
+
+  let organizer = user;
+
+  if (order.organizer && user.id !== order.organizer) {
+    const { data: _organizer } = await getUserProfile(client, order.organizer);
+
+    if (_organizer) organizer = _organizer;
+  }
 
   if (!order) {
     return (
@@ -31,14 +38,15 @@ export default async function OrderPage({
       {/* Date and coordinator */}
       <div className="flex flex-col">
         <mds-text variant={"title"} typography={"h3"}>
-          Ordine del {order.date}
+          Ordine del {new Date(order.delivery_datetime!).toLocaleDateString("it")}
         </mds-text>
         <mds-text variant={"info"} typography={"label"}>
-          Coordinatore: {order.coordinator}
+          Coordinatore: {organizer.full_name}
         </mds-text>
       </div>
+      {/* TODO recuperare correttamnete i piatti */}
       {/* Items */}
-      <ul className="my-0 pl-400">
+      {/* <ul className="my-0 pl-400">
         {order.items.map((item, index) => {
           return (
             <li key={`${item.name}-${index}`}>
@@ -53,14 +61,13 @@ export default async function OrderPage({
       </ul>
 
       <mds-hr />
-      {/* Total */}
       <mds-text variant={"title"} typography={"h4"} class="self-end">
         Totale: {order.items.reduce((acc, item) => acc + item.price, 0)}€
-      </mds-text>
+      </mds-text> */}
 
       <div className="flex gap-x-200 self-end">
         {/* TODO show this button only when user is the coordinator */}
-        {user.full_name === order.coordinator && (
+        {user.id === order.organizer && (
           <GenerateTextBtn user={user} order={order} />
         )}
         {/* TODO this button navigate to add entry to the order (display menu) */}
