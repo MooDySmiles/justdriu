@@ -51,7 +51,7 @@ export type Database = {
           delivery_datetime?: string | null
           end_hour?: string | null
           food_provider_id?: number | null
-          id: number
+          id?: never
           organizer?: string | null
           updated_at?: string | null
         }
@@ -61,7 +61,7 @@ export type Database = {
           delivery_datetime?: string | null
           end_hour?: string | null
           food_provider_id?: number | null
-          id?: number
+          id?: never
           organizer?: string | null
           updated_at?: string | null
         }
@@ -91,13 +91,13 @@ export type Database = {
         }
         Insert: {
           description?: string | null
-          id?: number
+          id?: never
           name?: string | null
           type?: number | null
         }
         Update: {
           description?: string | null
-          id?: number
+          id?: never
           name?: string | null
           type?: number | null
         }
@@ -117,11 +117,11 @@ export type Database = {
           type: string | null
         }
         Insert: {
-          id?: number
+          id?: never
           type?: string | null
         }
         Update: {
-          id?: number
+          id?: never
           type?: string | null
         }
         Relationships: []
@@ -140,7 +140,7 @@ export type Database = {
           address?: string | null
           close_hour_1?: string | null
           close_hour_2?: string | null
-          id?: number
+          id?: never
           name?: string | null
           open_hour_1?: string | null
           open_hour_2?: string | null
@@ -149,7 +149,7 @@ export type Database = {
           address?: string | null
           close_hour_1?: string | null
           close_hour_2?: string | null
-          id?: number
+          id?: never
           name?: string | null
           open_hour_1?: string | null
           open_hour_2?: string | null
@@ -198,13 +198,13 @@ export type Database = {
         }
         Insert: {
           command_id?: number | null
-          id?: number
+          id?: never
           profile_id?: string | null
           updated_at?: string | null
         }
         Update: {
           command_id?: number | null
-          id?: number
+          id?: never
           profile_id?: string | null
           updated_at?: string | null
         }
@@ -288,7 +288,7 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "profiles_id_fkey"
+            foreignKeyName: "profile_id_fkey"
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
