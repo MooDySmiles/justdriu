@@ -7,7 +7,7 @@ import { type Tables } from "types/database";
 import { getUserProfile } from "@utils/supabase/api/user";
 
 export function ControlBar() {
-  const [sbUser, setSbUser] = useState<Tables<'profiles'>>();
+  const [sbUser, setSbUser] = useState<Tables<'profile'>>();
 
   const supabase = createClient();
 
