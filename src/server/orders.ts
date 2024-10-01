@@ -12,7 +12,8 @@ export async function getMyOrders() {
   const { data: user } = await getUserProfile(supabase);
 
   if (!user) throw new Error("Unauthorized");
-  
+
+  // TODO retrieve orders where the user is the organizer  OR where the user participate
   // const { data: orders, error } = await supabase
   //   .from("order")
   //   .select()
