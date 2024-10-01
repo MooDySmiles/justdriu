@@ -7,7 +7,7 @@ export default function GenerateTextBtn({
   user,
   order,
 }: {
-  user: Tables<"profiles">;
+  user: Tables<"profile">;
   order: JDOrder;
 }) {
   const generateText = () => {
