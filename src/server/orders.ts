@@ -54,13 +54,15 @@ export async function saveOrder(formData: FormData) {
     end_hour,
   );
 
-  // const { error } = await supabase.from("order").insert({
-  //   created_at: createdUpdatedAt,
-  //   updated_at: createdUpdatedAt,
-  //   delivery_datetime,
-  //   end_hour,
-  //   organizer,
-  // });
+  // const { error } = await supabase
+  //   .from("order")
+  //   .insert([{
+  //     created_at: createdUpdatedAt,
+  //     updated_at: createdUpdatedAt,
+  //     delivery_datetime,
+  //     end_hour,
+  //     organizer,
+  //   }]);
 
   // if (error) throw new Error(error.message);
 
