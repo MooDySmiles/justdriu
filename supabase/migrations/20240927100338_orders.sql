@@ -1,13 +1,10 @@
-ALTER TABLE IF EXISTS "profiles"
-  RENAME TO "profile";
-
 ALTER TABLE IF EXISTS "profile"
   DROP "website",
   ADD "preferred_ship_address" text,
   ADD "preferred_ship_hour" time;
 
 CREATE TABLE "command" (
-  "id" integer PRIMARY KEY,
+  "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "organizer" uuid,
   "food_provider_id" integer,
   "delivery_datetime" timestamp,
@@ -18,7 +15,7 @@ CREATE TABLE "command" (
 );
 
 CREATE TABLE "order" (
-  "id" serial PRIMARY KEY,
+  "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "profile_id" uuid,
   "command_id" integer,
   "updated_at" timestamp
@@ -32,12 +29,12 @@ CREATE TABLE "order_dish" (
 );
 
 CREATE TABLE "dish_type" (
-  "id" serial PRIMARY KEY,
+  "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "type" text
 );
 
 CREATE TABLE "dish" (
-  "id" serial PRIMARY KEY,
+  "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "type" integer,
   "name" text,
   "description" text
@@ -51,7 +48,7 @@ CREATE TABLE "food_provider_dish" (
 );
 
 CREATE TABLE "food_provider" (
-  "id" serial PRIMARY KEY,
+  "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "name" text,
   "address" text,
   "open_hour_1" time,

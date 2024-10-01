@@ -1,5 +1,5 @@
--- Create a table for public profiles
-create table if not exists profiles (
+-- Create a table for public profile
+create table if not exists profile (
   id uuid references auth.users on delete cascade not null primary key,
   updated_at timestamp with time zone,
   username text unique,
@@ -11,16 +11,16 @@ create table if not exists profiles (
 );
 -- Set up Row Level Security (RLS)
 -- See https://supabase.com/docs/guides/auth/row-level-security for more details.
-alter table profiles
+alter table profile
   enable row level security;
 
-create policy "Public profiles are viewable by everyone." on profiles
+create policy "Public profile are viewable by everyone." on profile
   for select using (true);
 
-create policy "Users can insert their own profile." on profiles
+create policy "Users can insert their own profile." on profile
   for insert with check ((select auth.uid()) = id);
 
-create policy "Users can update own profile." on profiles
+create policy "Users can update own profile." on profile
   for update using ((select auth.uid()) = id);
 
 -- This trigger automatically creates a profile entry when a new user signs up via Supabase Auth.
@@ -30,7 +30,7 @@ returns trigger
 set search_path = ''
 as $$
 begin
-  insert into public.profiles (id, full_name, avatar_url)
+  insert into public.profile (id, full_name, avatar_url)
   values (new.id, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'avatar_url');
   return new;
 end;
