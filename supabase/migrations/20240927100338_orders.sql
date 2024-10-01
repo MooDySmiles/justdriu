@@ -1,18 +1,32 @@
-ALTER TABLE IF EXISTS "profiles" 
+ALTER TABLE IF EXISTS "profiles"
+  RENAME TO "profile";
+
+ALTER TABLE IF EXISTS "profile"
   DROP "website",
   ADD "preferred_ship_address" text,
   ADD "preferred_ship_hour" time;
 
+CREATE TABLE "command" (
+  "id" integer PRIMARY KEY,
+  "organizer" uuid,
+  "food_provider_id" integer,
+  "delivery_datetime" timestamp,
+  "end_hour" time,
+  "created_at" timestamp,
+  "updated_at" timestamp,
+  "delivery_address" text
+);
+
 CREATE TABLE "order" (
   "id" serial PRIMARY KEY,
-  "organizer" uuid,
-  "day" timestamp,
-  "end_hour" time
+  "profile_id" uuid,
+  "command_id" integer,
+  "updated_at" timestamp
 );
 
 CREATE TABLE "order_dish" (
-  "order_id" integer,
-  "dish_id" integer,
+  "order_id" integer NOT NULL,
+  "dish_id" integer NOT NULL,
   "quantity" smallint,
   PRIMARY KEY ("order_id", "dish_id")
 );
@@ -24,6 +38,7 @@ CREATE TABLE "dish_type" (
 
 CREATE TABLE "dish" (
   "id" serial PRIMARY KEY,
+  "type" integer,
   "name" text,
   "description" text
 );
@@ -47,25 +62,20 @@ CREATE TABLE "food_provider" (
 
 COMMENT ON COLUMN "dish"."description" IS 'Description of the dish';
 
-CREATE TABLE "profiles_order" (
-  "profiles_id" uuid,
-  "order_id" integer,
-  PRIMARY KEY ("profiles_id", "order_id")
-);
+ALTER TABLE "order" ADD FOREIGN KEY ("profile_id") REFERENCES "profile" ("id");
 
-ALTER TABLE "profiles_order" ADD FOREIGN KEY ("profiles_id") REFERENCES "profiles" ("id");
+ALTER TABLE "order" ADD FOREIGN KEY ("command_id") REFERENCES "command" ("id");
 
-ALTER TABLE "profiles_order" ADD FOREIGN KEY ("order_id") REFERENCES "order" ("id");
+ALTER TABLE "order_dish" ADD CONSTRAINT "order_dish_dish_id_fkey" FOREIGN KEY ("dish_id") REFERENCES "dish" ("id");
 
+ALTER TABLE "order_dish" ADD CONSTRAINT "order_dish_order_id_fkey" FOREIGN KEY ("order_id") REFERENCES "order" ("id");
 
-ALTER TABLE "order" ADD FOREIGN KEY ("organizer") REFERENCES "profiles" ("id");
+ALTER TABLE "dish" ADD CONSTRAINT "dish_id_fkey" FOREIGN KEY ("type") REFERENCES "dish_type" ("id");
 
-ALTER TABLE "order_dish" ADD FOREIGN KEY ("order_id") REFERENCES "order" ("id");
+ALTER TABLE "food_provider_dish" ADD CONSTRAINT "food_provider_dish_dish_id_fkey" FOREIGN KEY ("dish_id") REFERENCES "dish" ("id");
 
-ALTER TABLE "order_dish" ADD FOREIGN KEY ("dish_id") REFERENCES "dish" ("id");
+ALTER TABLE "food_provider_dish" ADD CONSTRAINT "food_provider_dish_food_provider_id_fkey" FOREIGN KEY ("food_provider_id") REFERENCES "food_provider" ("id");
 
-ALTER TABLE "dish" ADD FOREIGN KEY ("id") REFERENCES "dish_type" ("id");
+ALTER TABLE "command" ADD CONSTRAINT "order_organizer_fkey" FOREIGN KEY ("organizer") REFERENCES "profile" ("id");
 
-ALTER TABLE "food_provider_dish" ADD FOREIGN KEY ("dish_id") REFERENCES "dish" ("id");
-
-ALTER TABLE "food_provider_dish" ADD FOREIGN KEY ("food_provider_id") REFERENCES "food_provider" ("id");
+ALTER TABLE "command" ADD FOREIGN KEY ("food_provider_id") REFERENCES "food_provider" ("id");

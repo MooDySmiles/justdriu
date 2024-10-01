@@ -23,7 +23,7 @@ export default function AccountForm({ user }: Readonly<{ user: User | null }>) {
         )
       }
       const { data, error, status } = await supabase
-        .from("profiles")
+        .from("profile")
         .select(`full_name, username, avatar_url`)
         .eq("id", user?.id)
         .single();

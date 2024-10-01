@@ -18,7 +18,7 @@ export async function getUserProfile(
   if (!userId) throw new Error("User not authenticated");
 
   return client
-    .from("profiles")
+    .from("profile")
     .select("*")
     .eq("id", userId)
     .throwOnError()
@@ -27,14 +27,14 @@ export async function getUserProfile(
 
 export async function updateUserProfile(
   client: SupabaseClient<Database>,
-  data: TablesUpdate<"profiles">,
+  data: TablesUpdate<"profile">,
 ) {
   const userId = (await client.auth.getUser()).data.user?.id;
 
   if (!userId) throw new Error("User not authenticated");
 
   return client
-    .from("profiles")
+    .from("profile")
     .update({
       avatar_url: data.avatar_url ?? null,
       full_name: data.full_name ?? null,
