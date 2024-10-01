@@ -34,27 +34,78 @@ export type Database = {
   }
   public: {
     Tables: {
+      command: {
+        Row: {
+          created_at: string | null
+          delivery_address: string | null
+          delivery_datetime: string | null
+          end_hour: string | null
+          food_provider_id: number | null
+          id: number
+          organizer: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          delivery_address?: string | null
+          delivery_datetime?: string | null
+          end_hour?: string | null
+          food_provider_id?: number | null
+          id: number
+          organizer?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          delivery_address?: string | null
+          delivery_datetime?: string | null
+          end_hour?: string | null
+          food_provider_id?: number | null
+          id?: number
+          organizer?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "command_food_provider_id_fkey"
+            columns: ["food_provider_id"]
+            isOneToOne: false
+            referencedRelation: "food_provider"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_organizer_fkey"
+            columns: ["organizer"]
+            isOneToOne: false
+            referencedRelation: "profile"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       dish: {
         Row: {
           description: string | null
           id: number
           name: string | null
+          type: number | null
         }
         Insert: {
           description?: string | null
           id?: number
           name?: string | null
+          type?: number | null
         }
         Update: {
           description?: string | null
           id?: number
           name?: string | null
+          type?: number | null
         }
         Relationships: [
           {
             foreignKeyName: "dish_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
+            columns: ["type"]
+            isOneToOne: false
             referencedRelation: "dish_type"
             referencedColumns: ["id"]
           },
@@ -140,45 +191,36 @@ export type Database = {
       }
       order: {
         Row: {
-          created_at: string | null
-          delivery_datetime: string | null
-          end_hour: string | null
-          food_provider_id: number | null
+          command_id: number | null
           id: number
-          organizer: string | null
+          profile_id: string | null
           updated_at: string | null
         }
         Insert: {
-          created_at?: string | null
-          delivery_datetime?: string | null
-          end_hour?: string | null
-          food_provider_id?: number | null
+          command_id?: number | null
           id?: number
-          organizer?: string | null
+          profile_id?: string | null
           updated_at?: string | null
         }
         Update: {
-          created_at?: string | null
-          delivery_datetime?: string | null
-          end_hour?: string | null
-          food_provider_id?: number | null
+          command_id?: number | null
           id?: number
-          organizer?: string | null
+          profile_id?: string | null
           updated_at?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "order_food_provider_id_fkey"
-            columns: ["food_provider_id"]
+            foreignKeyName: "order_command_id_fkey"
+            columns: ["command_id"]
             isOneToOne: false
-            referencedRelation: "food_provider"
+            referencedRelation: "command"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "order_organizer_fkey"
-            columns: ["organizer"]
+            foreignKeyName: "order_profile_id_fkey"
+            columns: ["profile_id"]
             isOneToOne: false
-            referencedRelation: "profiles"
+            referencedRelation: "profile"
             referencedColumns: ["id"]
           },
         ]
@@ -216,7 +258,7 @@ export type Database = {
           },
         ]
       }
-      profiles: {
+      profile: {
         Row: {
           avatar_url: string | null
           full_name: string | null
@@ -250,36 +292,6 @@ export type Database = {
             columns: ["id"]
             isOneToOne: true
             referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      profiles_order: {
-        Row: {
-          order_id: number
-          profiles_id: string
-        }
-        Insert: {
-          order_id: number
-          profiles_id: string
-        }
-        Update: {
-          order_id?: number
-          profiles_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_order_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "order"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "profiles_order_profiles_id_fkey"
-            columns: ["profiles_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
