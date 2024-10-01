@@ -3,8 +3,9 @@ import { orders } from "@/utils/temp_orders";
 import { redirect } from "next/navigation";
 import { createClient } from "@utils/supabase/server";
 import { getUserProfile } from "@utils/supabase/api/user";
+import { type JDOrder } from "@/types";
 
-export async function getMyOrders() {
+export async function getMyOrders(): Promise<JDOrder[]> {
   "use server";
 
   const supabase = createClient();
@@ -24,6 +25,14 @@ export async function getMyOrders() {
 
   // return orders;
   return orders.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+}
+
+export async function getOrder(orderId: string): Promise<JDOrder> {
+  const order = orders.find((order) => order.id === orderId);
+
+  if (!order) return Promise.reject(new Error("Order not found"));
+
+  return Promise.resolve(order);
 }
 
 export async function saveOrder(formData: FormData) {
