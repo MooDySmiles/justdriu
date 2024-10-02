@@ -1,4 +1,4 @@
-import "server-only";
+"use server";
 
 import { getUserProfile } from "@utils/supabase/api/user";
 import { createClient } from "@utils/supabase/server";
@@ -6,8 +6,6 @@ import { redirect } from "next/navigation";
 import { type Tables } from "types/database";
 
 export async function getMyCommands(): Promise<Tables<"command">[]> {
-  "use server";
-
   const client = createClient();
 
   const { data: user } = await getUserProfile(client);
@@ -27,8 +25,6 @@ export async function getMyCommands(): Promise<Tables<"command">[]> {
 }
 
 export async function getCommand(commandId: string): Promise<Tables<"command">> {
-  "use server";
-
   const client = createClient();
 
   const { data: user } = await getUserProfile(client);

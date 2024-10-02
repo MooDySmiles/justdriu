@@ -15,17 +15,14 @@ const schema = z.object({
     message: "Indirizzo di consegna deve essere almeno 1 carattere",
   }),
   preferred_ship_hour: z
-    .string({
-      required_error: "Orario di consegna preferito è necessario",
-      invalid_type_error: "Orario di consegna non è valido",
-    })
+    .string()
     .time({ message: "Orario di consegna non è valido" }),
 });
 
 export async function updateUser(
   user: Tables<"profile">,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  prevState: any,
+  _: any,
   formData: FormData,
 ) {
   const client = createClient();
@@ -33,7 +30,7 @@ export async function updateUser(
   const validatedFields = schema.safeParse({
     full_name: formData.get("full_name"),
     preferred_ship_address: formData.get("preferred_ship_address"),
-    preferred_ship_hour: formData.get("preferred_ship_hour"),
+    preferred_ship_hour: `${formData.get("preferred_ship_hour") as string}:00`,
   });
 
   if (!validatedFields.success) {

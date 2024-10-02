@@ -1,14 +1,30 @@
+"use client";
+
 import { saveCommand } from "@/server/commands";
 import { getUserProfile } from "@utils/supabase/api/user";
-import { createClient } from "@utils/supabase/server";
+import { createClient } from "@utils/supabase/client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { type Tables } from "types/database";
 
-export default async function NewCommandPage() {
-  const client = createClient();
-
-  const { data: user } = await getUserProfile(client);
+export default function NewCommandPage() {
+  const [user, setUser] = useState<Tables<"profile">>();
 
   const today = new Date().toISOString().split("T")[0];
+
+  const retrieveUser = async () => {
+    const client = createClient();
+
+    const { data: user } = await getUserProfile(client);
+
+    if (!user) throw new Error("Unauthorized");
+
+    setUser(user);
+  };
+
+  useEffect(() => {
+    void retrieveUser();
+  }, []);
 
   return (
     <form action={saveCommand} className="flex flex-col gap-y-400">
