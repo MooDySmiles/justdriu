@@ -1,8 +1,15 @@
 import { saveCommand } from "@/server/commands";
+import { getUserProfile } from "@utils/supabase/api/user";
+import { createClient } from "@utils/supabase/server";
 import Link from "next/link";
 
-export default function NewCommandPage() {
+export default async function NewCommandPage() {
+  const client = createClient();
+
+  const { data: user } = await getUserProfile(client);
+
   const today = new Date().toISOString().split("T")[0];
+
   return (
     <form action={saveCommand} className="flex flex-col gap-y-400">
       <mds-text variant={"title"} typography={"h3"}>
@@ -11,11 +18,28 @@ export default function NewCommandPage() {
       <div className="flex flex-col gap-200">
         <div className="flex flex-col">
           <mds-text class="font-semibold">Giorno</mds-text>
-          <mds-input type={"date"} name="commandDate" min={today} value={today} />
+          <mds-input
+            type={"date"}
+            name="commandDate"
+            min={today}
+            value={today}
+          />
+        </div>
+        <div className="flex flex-col">
+          <mds-text class="font-semibold">Indirizzo consegna</mds-text>
+          <mds-input
+            type={"text"}
+            name="commandAddress"
+            value={user?.preferred_ship_address ?? ""}
+          />
         </div>
         <div className="flex flex-col">
           <mds-text class="font-semibold">Orario consegna</mds-text>
-          <mds-input type={"time"} name="commandTime" value="13:00" />
+          <mds-input
+            type={"time"}
+            name="commandTime"
+            value={user?.preferred_ship_hour ?? "13:00"}
+          />
         </div>
         <div className="flex flex-col">
           <mds-text class="font-semibold">Scadenza</mds-text>

@@ -2,6 +2,7 @@ import LogoutBtn from "@/components/logout_btn";
 import { getUserProfile } from "@utils/supabase/api/user";
 import { createClient } from "@utils/supabase/server";
 import Link from "next/link";
+import HomeBtn from "./home_btn";
 
 export default async function ControlBar() {
   const client = createClient();
@@ -10,7 +11,8 @@ export default async function ControlBar() {
 
   return (
     // TODO modificare nuovamente in justify-between quando e SE si rimetterà il menù laterale
-    <div className="flex justify-end bg-tone-neutral-09 px-400 py-250">
+    <div className="flex justify-between bg-tone-neutral-09 px-400 py-250 items-center">
+      <HomeBtn />
       {/* <mds-icon name="mi/outline/menu" class="cursor-pointer"></mds-icon> */}
       <div className="flex items-center gap-x-400">
         <LogoutBtn />

@@ -23,7 +23,13 @@ export default async function CommandCard({ command }: { command: Tables<"comman
           {new Date(command.delivery_datetime!).toLocaleString("it")}
         </mds-text>
         <div className="flex items-center justify-between gap-x-250">
-          <mds-icon name="mi/outline/schedule" />
+          <mds-icon name="mi/outline/pin-drop" />
+          <mds-text variant={"info"} typography={"detail"}>
+            {command.delivery_address}
+          </mds-text>
+        </div>
+        <div className="flex items-center justify-between gap-x-250">
+          <mds-icon name="mi/outline/sports-score" />
           <mds-text variant={"info"} typography={"detail"}>
             {command.end_hour}
           </mds-text>
