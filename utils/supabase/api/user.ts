@@ -17,12 +17,14 @@ export async function getUserProfile(
 
   if (!userId) throw new Error("User not authenticated");
 
-  return client
+  const data = await client
     .from("profile")
     .select("*")
     .eq("id", userId)
     .throwOnError()
     .single();
+
+  return data;
 }
 
 export async function updateUserProfile(
@@ -33,7 +35,7 @@ export async function updateUserProfile(
 
   if (!userId) throw new Error("User not authenticated");
 
-  return client
+  const result = client
     .from("profile")
     .update({
       avatar_url: data.avatar_url ?? null,
@@ -45,4 +47,6 @@ export async function updateUserProfile(
     })
     .eq("id", userId)
     .throwOnError();
+
+  return result;
 }

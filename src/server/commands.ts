@@ -1,7 +1,8 @@
+import "server-only";
+
 import { getUserProfile } from "@utils/supabase/api/user";
 import { createClient } from "@utils/supabase/server";
 import { redirect } from "next/navigation";
-import "server-only";
 import { type Tables } from "types/database";
 
 export async function getMyCommands(): Promise<Tables<"command">[]> {

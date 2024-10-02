@@ -1,4 +1,4 @@
-import { ControlBar } from "@/components/control_bar";
+import ControlBar from "@/components/control_bar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

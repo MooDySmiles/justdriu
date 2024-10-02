@@ -1,40 +1,27 @@
-"use client";
-
-import { createClient } from "@utils/supabase/client";
-import { useEffect, useState } from "react";
-import { logout } from "@/server/logout";
-import { type Tables } from "types/database";
+import LogoutBtn from "@/components/logout_btn";
 import { getUserProfile } from "@utils/supabase/api/user";
+import { createClient } from "@utils/supabase/server";
+import Link from "next/link";
 
-export function ControlBar() {
-  const [sbUser, setSbUser] = useState<Tables<'profile'>>();
+export default async function ControlBar() {
+  const client = createClient();
 
-  const supabase = createClient();
+  const { data: user } = await getUserProfile(client);
 
-  const getSbUser = async () => {
-    const { data } = await getUserProfile(supabase)
-    if (data) setSbUser(data);
-  };
-
-  useEffect(() => {
-    void getSbUser();
-  }, []);
-
-  return sbUser ? (
-    <div className="flex justify-between bg-tone-neutral-09 px-400 py-250">
-      <mds-icon name="mi/outline/menu" class="cursor-pointer"></mds-icon>
+  return (
+    // TODO modificare nuovamente in justify-between quando e SE si rimetterà il menù laterale
+    <div className="flex justify-end bg-tone-neutral-09 px-400 py-250">
+      {/* <mds-icon name="mi/outline/menu" class="cursor-pointer"></mds-icon> */}
       <div className="flex items-center gap-x-400">
-        <mds-text class="cursor-pointer" onClick={() => logout()}>
-          Esci
-        </mds-text>
-        <mds-avatar
-          src={sbUser?.avatar_url ?? ''}
-          initials={sbUser?.full_name?.substring(0, 1)}
-          class="cursor-pointer"
-        ></mds-avatar>
+        <LogoutBtn />
+        <Link href={"/dashboard/account"}>
+          <mds-avatar
+            src={user?.avatar_url ?? ""}
+            initials={user?.full_name?.substring(0, 1)}
+            class="cursor-pointer"
+          ></mds-avatar>
+        </Link>
       </div>
     </div>
-  ) : (
-    ""
   );
 }
