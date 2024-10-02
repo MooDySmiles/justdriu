@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { type Tables } from "types/database";
 import { z } from "zod";
 
-const schema = z.object({
+const updateUserSchema = z.object({
   full_name: z.string().min(1, {
     message: "Nome deve essere almeno 1 carattere",
   }),
@@ -27,7 +27,7 @@ export async function updateUser(
 ) {
   const client = createClient();
 
-  const validatedFields = schema.safeParse({
+  const validatedFields = updateUserSchema.safeParse({
     full_name: formData.get("full_name"),
     preferred_ship_address: formData.get("preferred_ship_address"),
     preferred_ship_hour: `${formData.get("preferred_ship_hour") as string}:00`,

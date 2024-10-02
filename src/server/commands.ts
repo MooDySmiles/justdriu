@@ -4,6 +4,7 @@ import { getUserProfile } from "@utils/supabase/api/user";
 import { createClient } from "@utils/supabase/server";
 import { redirect } from "next/navigation";
 import { type Tables } from "types/database";
+import { z } from "zod";
 
 export async function getMyCommands(): Promise<Tables<"command">[]> {
   const client = createClient();
@@ -24,7 +25,9 @@ export async function getMyCommands(): Promise<Tables<"command">[]> {
   return commands as Tables<"command">[];
 }
 
-export async function getCommand(commandId: string): Promise<Tables<"command">> {
+export async function getCommand(
+  commandId: string,
+): Promise<Tables<"command">> {
   const client = createClient();
 
   const { data: user } = await getUserProfile(client);
@@ -46,16 +49,35 @@ export async function getCommand(commandId: string): Promise<Tables<"command">> 
   return command[0] as Tables<"command">;
 }
 
-export async function saveCommand(formData: FormData) {
-  "use server";
+const saveCommandScheme = z.object({
+  commandDate: z.string().date("Giorno di consegna non è valido"),
+  commandTime: z.string().time({ message: "Orario di consegna non è valido" }),
+  commandAddress: z.string().min(1, {
+    message: "Indirizzo di consegna deve essere almeno 1 carattere",
+  }),
+  endHour: z.string().time({ message: "Scadenza non è valido" }),
+});
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function saveCommand(_: any, formData: FormData) {
   const client = createClient();
 
   const { data: user } = await getUserProfile(client);
 
   if (!user) throw new Error("Unauthorized");
 
-  // TODO form validation
+  const validatedFields = saveCommandScheme.safeParse({
+    commandDate: formData.get("commandDate"),
+    commandTime: `${formData.get("commandTime") as string}:00`,
+    commandAddress: formData.get("commandAddress"),
+    endHour: `${formData.get("endHour") as string}:00`,
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
+  }
 
   const organizer = user.id;
   const delivery_datetime = new Date(
