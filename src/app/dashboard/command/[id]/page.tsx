@@ -4,8 +4,8 @@ import { createClient } from "@utils/supabase/server";
 import Link from "next/link";
 import GenerateTextBtn from "./_components/generate_text_btn";
 
-export default async function OrderPage({
-  params: { id: orderId },
+export default async function CommandPage({
+  params: { id: commandId },
 }: {
   params: { id: string };
 }) {
@@ -15,17 +15,17 @@ export default async function OrderPage({
 
   if (!user) throw new Error("Unauthorized");
 
-  const order = await getCommand(orderId);
+  const command = await getCommand(commandId);
 
   let organizer = user;
 
-  if (order.organizer && user.id !== order.organizer) {
-    const { data: _organizer } = await getUserProfile(client, order.organizer);
+  if (command.organizer && user.id !== command.organizer) {
+    const { data: _organizer } = await getUserProfile(client, command.organizer);
 
     if (_organizer) organizer = _organizer;
   }
 
-  if (!order) {
+  if (!command) {
     return (
       <mds-text variant={"title"} typography={"h2"} class="text-status-error">
         Impossibile recuperare dati ordine
@@ -38,7 +38,7 @@ export default async function OrderPage({
       {/* Date and coordinator */}
       <div className="flex flex-col">
         <mds-text variant={"title"} typography={"h3"}>
-          Ordine del {new Date(order.delivery_datetime!).toLocaleDateString("it")}
+          Ordine del {new Date(command.delivery_datetime!).toLocaleDateString("it")}
         </mds-text>
         <mds-text variant={"info"} typography={"label"}>
           Coordinatore: {organizer.full_name}
@@ -47,7 +47,7 @@ export default async function OrderPage({
       {/* TODO recuperare correttamnete i piatti */}
       {/* Items */}
       {/* <ul className="my-0 pl-400">
-        {order.items.map((item, index) => {
+        {command.items.map((item, index) => {
           return (
             <li key={`${item.name}-${index}`}>
               <div className="flex gap-x-250">
@@ -62,15 +62,15 @@ export default async function OrderPage({
 
       <mds-hr />
       <mds-text variant={"title"} typography={"h4"} class="self-end">
-        Totale: {order.items.reduce((acc, item) => acc + item.price, 0)}€
+        Totale: {command.items.reduce((acc, item) => acc + item.price, 0)}€
       </mds-text> */}
 
       <div className="flex gap-x-200 self-end">
         {/* TODO show this button only when user is the coordinator */}
-        {user.id === order.organizer && (
-          <GenerateTextBtn user={user} order={order} />
+        {user.id === command.organizer && (
+          <GenerateTextBtn user={user} command={command} />
         )}
-        {/* TODO this button navigate to add entry to the order (display menu) */}
+        {/* TODO this button navigate to add entry to the command (display menu) */}
         <Link href={"menu"}>
           <mds-button>Aggiungi</mds-button>
         </Link>

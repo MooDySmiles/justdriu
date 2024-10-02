@@ -46,8 +46,6 @@ export async function getCommand(commandId: string): Promise<Tables<"command">> 
 
   if (command.length > 1) throw new Error("More than a result returned");
 
-  console.log("Command", command[0]);
-
   return command[0] as Tables<"command">;
 }
 
