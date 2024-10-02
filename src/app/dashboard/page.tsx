@@ -1,24 +1,25 @@
-import OrderCard from "@/components/order_card";
-import { getMyOrders } from "@/server/orders";
+import CommandCard from "@/components/command_card";
+import { getMyCommands } from "@/server/commands";
 import Link from "next/link";
+import { type Tables } from "types/database";
 
 export default async function DashboardPage() {
-  const orders = await getMyOrders();
+  const commands = await getMyCommands();
   
   return (
     <>
       <div className="flex flex-wrap gap-y-600 mobile:justify-between tablet:gap-x-600">
-        {orders.map((order) => (
+        {commands.map((command: Tables<"command">) => (
           <Link
-            key={order.id}
-            href={`dashboard/order/${order.id}`}
+            key={command.id}
+            href={`dashboard/command/${command.id}`}
             className="text-inherit no-underline"
           >
-            <OrderCard order={order} />
+            <CommandCard command={command} />
           </Link>
         ))}
       </div>
-      <Link href="/dashboard/order/new">
+      <Link href="/dashboard/command/new">
         <mds-icon
           name="mi/outline/loupe"
           class="absolute aspect-square w-1200 cursor-pointer fill-[#72D800] mobile:bottom-2000 mobile:right-400 tablet:bottom-1000 tablet:right-1000"
