@@ -31,9 +31,9 @@ export async function updateUserProfile(
   client: SupabaseClient<Database>,
   data: TablesUpdate<"profile">,
 ) {
-  const userId = (await client.auth.getUser()).data.user?.id;
+  const { data: { user } } = await client.auth.getUser();
 
-  if (!userId) throw new Error("User not authenticated");
+  if (!user?.id) throw new Error("User not authenticated");
 
   const result = client
     .from("profile")
@@ -45,7 +45,7 @@ export async function updateUserProfile(
       updated_at: new Date().toISOString(),
       username: data.username ?? null,
     })
-    .eq("id", userId)
+    .eq("id", user.id)
     .throwOnError();
 
   return result;
