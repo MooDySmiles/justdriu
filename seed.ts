@@ -9,8 +9,31 @@ import { createClient } from "@supabase/supabase-js";
 import { copycat } from "@snaplet/copycat";
 import { type Tables } from "./types/database";
 
+// workaround per il problema che vengono generati timestamp se il tipo di dato nel db è timetz
+const time = (ctx) =>
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+  new Date(copycat.dateString(ctx.seed)).toLocaleTimeString();
+
 const main = async () => {
-  const seed = await createSeedClient();
+  // sovrascrivo le funzioni di default per la generazione delle colonne dove il tipo è timetz
+  const seed = await createSeedClient({
+    models: {
+      profile: {
+        data: { preferred_ship_hour: time },
+      },
+      command: {
+        data: { end_hour: time },
+      },
+      food_provider: {
+        data: {
+          open_hour_1: time,
+          close_hour_1: time,
+          open_hour_2: time,
+          close_hour_2: time,
+        },
+      },
+    },
+  });
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
