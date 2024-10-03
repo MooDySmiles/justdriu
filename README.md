@@ -84,6 +84,15 @@ Generazione types post migrazione
 npx supabase gen types typescript --local > types/database.d.ts
 ```
 
+## Seed data
+È possibile riempire con dati dummy il db tramite il comando
+
+```
+npm run supa.seed
+```
+Questo comando utilizza [Snaplet][snaplet] per generare i dati definiti nel file `seed.ts`, in particolare crea gli utenti tramite autenticazione per email (abilitata solo per supabase locale) e riempie di conseguenza tutte le altre tabelle
+
+ATTENZIONE: Elimina tutti i dati presenti nel db prima di generarne di nuovi
 ## Autenticazione
 
 L'autenticazione degli utenti è gestita tramite Supabase che offre la possibilità di effettuare la login attraverso:
@@ -93,3 +102,6 @@ L'autenticazione degli utenti è gestita tramite Supabase che offre la possibili
   - SAML
 
 Per il caso d'uso di questo progetto viene utilizzato esclusivamente il sistema di autenticazione SSO OAuth2.0 di Google utilizzando il [bottone pre-built](https://developers.google.com/identity/gsi/web/guides/display-button).
+
+
+[snaplet]:https://snaplet-seed.netlify.app/seed/getting-started/overview
