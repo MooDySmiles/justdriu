@@ -7,7 +7,7 @@
 import { createSeedClient } from "@snaplet/seed";
 import { createClient } from "@supabase/supabase-js";
 import { copycat } from "@snaplet/copycat";
-import { type Tables } from "types/database";
+import { type Tables } from "./types/database";
 
 const main = async () => {
   const seed = await createSeedClient();
