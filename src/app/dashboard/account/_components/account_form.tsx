@@ -48,7 +48,7 @@ export default function AccountForm({
           <mds-input
             type={"time"}
             name="preferred_ship_hour"
-            value={user.preferred_ship_hour ?? ""}
+            value={user.preferred_ship_hour?.substring(0,5) ?? ""}
           />
           {state.errors.preferred_ship_hour && (
             <mds-text class="text-status-error">

@@ -1,6 +1,7 @@
 "use client";
 
 import { saveCommand } from "@/server/commands";
+import { getFoodProviders } from "@/server/food_provider";
 import { getUserProfile } from "@utils/supabase/api/user";
 import { createClient } from "@utils/supabase/client";
 import Link from "next/link";
@@ -10,13 +11,15 @@ import { type Tables } from "types/database";
 
 export default function NewCommandPage() {
   const [user, setUser] = useState<Tables<"profile">>();
-  const [state, formAction] = useFormState(saveCommand, { errors: {} })
+  const [foodProviders, setFoodProviders] =
+    useState<Tables<"food_provider">[]>();
+  const [state, formAction] = useFormState(saveCommand, { errors: {} });
 
   const today = new Date().toISOString().split("T")[0];
 
-  const retrieveUser = async () => {
-    const client = createClient();
+  const client = createClient();
 
+  const retrieveUser = async () => {
     const { data: user } = await getUserProfile(client);
 
     if (!user) throw new Error("Unauthorized");
@@ -24,8 +27,15 @@ export default function NewCommandPage() {
     setUser(user);
   };
 
+  const retrieveFoodProviders = async () => {
+    const foodProviders = await getFoodProviders();
+
+    setFoodProviders(foodProviders);
+  };
+
   useEffect(() => {
     void retrieveUser();
+    void retrieveFoodProviders();
   }, []);
 
   return (
@@ -49,11 +59,21 @@ export default function NewCommandPage() {
           )}
         </div>
         <div className="flex flex-col">
+          <mds-text class="font-semibold">Esercente</mds-text>
+          <mds-input-select name="commandFoodProvider">
+            {foodProviders?.map((foodProvider) => (
+              <option key={foodProvider.id} value={foodProvider.id}>
+                {foodProvider.name}
+              </option>
+            ))}
+          </mds-input-select>
+        </div>
+        <div className="flex flex-col">
           <mds-text class="font-semibold">Orario consegna</mds-text>
           <mds-input
             type={"time"}
             name="commandTime"
-            value={user?.preferred_ship_hour ?? "13:00"}
+            value={user?.preferred_ship_hour?.substring(0, 5) ?? "13:00"}
           />
           {state.errors.commandTime && (
             <mds-text class="text-status-error">

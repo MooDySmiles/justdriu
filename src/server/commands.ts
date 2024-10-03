@@ -60,6 +60,7 @@ const saveCommandScheme = z.object({
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function saveCommand(_: any, formData: FormData) {
+  console.log(formData);
   const client = createClient();
 
   const { data: user } = await getUserProfile(client);
@@ -80,6 +81,7 @@ export async function saveCommand(_: any, formData: FormData) {
   }
 
   const organizer = user.id;
+  const food_provider_id = parseInt(formData.get("commandFoodProvider") as string);
   const delivery_datetime = new Date(
     `${formData.get("commandDate") as string} ${formData.get("commandTime") as string}`,
   ).toISOString();
@@ -90,7 +92,7 @@ export async function saveCommand(_: any, formData: FormData) {
   const { error } = await client.from("command").insert([
     {
       organizer,
-      food_provider_id: 1,
+      food_provider_id: food_provider_id ?? 1,
       delivery_address,
       created_at: createdUpdatedAt,
       updated_at: createdUpdatedAt,

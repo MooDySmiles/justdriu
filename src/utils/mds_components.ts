@@ -17,6 +17,7 @@ import { defineCustomElements as dceMdsCard } from "@maggioli-design-system/mds-
 import { defineCustomElements as dceMdsHr } from "@maggioli-design-system/mds-hr/loader";
 import { defineCustomElements as dceMdsIcon } from "@maggioli-design-system/mds-icon/loader";
 import { defineCustomElements as dceMdsInput } from "@maggioli-design-system/mds-input/loader";
+import { defineCustomElements as dceMdsInputSelect } from "@maggioli-design-system/mds-input-select/loader";
 import { defineCustomElements as dceMdsInputTip } from "@maggioli-design-system/mds-input-tip/loader";
 import { defineCustomElements as dceMdsInputTipItem } from "@maggioli-design-system/mds-input-tip-item/loader";
 import { defineCustomElements as dceMdsImg } from "@maggioli-design-system/mds-img/loader";
@@ -31,6 +32,7 @@ dceMdsCardHeader();
 dceMdsHr();
 dceMdsIcon();
 dceMdsInput();
+dceMdsInputSelect();
 dceMdsInputTip();
 dceMdsInputTipItem();
 dceMdsImg();

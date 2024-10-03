@@ -23,6 +23,7 @@
     "@maggioli-design-system/mds-hr": "2.8.2",
     "@maggioli-design-system/mds-icon": "2.10.5",
     "@maggioli-design-system/mds-input": "6.2.1",
+    "@maggioli-design-system/mds-input-select": "2.0.4",
     "@maggioli-design-system/mds-text": "4.4.3",
     "@maggioli-design-system/styles": "15.3.2",
     "@supabase/ssr": "0.5.1",
