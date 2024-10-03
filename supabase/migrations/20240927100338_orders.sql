@@ -7,10 +7,10 @@ CREATE TABLE "command" (
   "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "organizer" uuid,
   "food_provider_id" integer,
-  "delivery_datetime" timestamp,
+  "delivery_datetime" timestamp with time zone,
   "end_hour" time,
-  "created_at" timestamp,
-  "updated_at" timestamp,
+  "created_at" timestamp with time zone,
+  "updated_at" timestamp with time zone,
   "delivery_address" text
 );
 
@@ -18,7 +18,7 @@ CREATE TABLE "order" (
   "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "profile_id" uuid,
   "command_id" integer,
-  "updated_at" timestamp
+  "updated_at" timestamp with time zone
 );
 
 CREATE TABLE "order_dish" (
