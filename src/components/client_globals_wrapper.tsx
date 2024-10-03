@@ -3,18 +3,19 @@
 import "@/utils/mds_components";
 import { useEffect } from "react";
 
-export default function WebComponentsWrapper({
+import dayjs from "dayjs";
+import "dayjs/locale/it";
+
+export default function ClientGlobalsWrapper({
   children,
 }: {
   children: React.ReactNode;
 }) {
   useEffect(() => {
     sessionStorage.setItem("mdsIconSvgPath", `/svg/`);
+
+    dayjs.locale("it");
   }, []);
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

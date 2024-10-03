@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import { type Metadata } from "next";
-import WebComponentsWrapper from "@/components/web_components_wrapper";
+import ClientGlobalsWrapper from "@/components/client_globals_wrapper";
 
 export const metadata: Metadata = {
   title: "Just Driù",
@@ -15,9 +15,9 @@ export default function RootLayout({
   return (
     <html lang="it">
       <body className="m-0 h-screen">
-        <WebComponentsWrapper>
+        <ClientGlobalsWrapper>
           <main className="h-full">{children}</main>
-        </WebComponentsWrapper>
+        </ClientGlobalsWrapper>
       </body>
     </html>
   );
