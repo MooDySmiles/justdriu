@@ -9,7 +9,12 @@
     "predev": "npm run build.icons",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "supa.start": "supabase start",
+    "supa.stop": "supabase stop",
+    "supa.reset": "supabase db reset",
+    "supa.types": "supabase gen types typescript --local > types/database.d.ts",
+    "supa.seed": "npx @snaplet/seed sync && npx tsx seed.ts"
   },
   "dependencies": {
     "@iconsauce/core": "1.2.5",
@@ -33,6 +38,8 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
+    "@snaplet/copycat": "5.0.0",
+    "@snaplet/seed": "0.98.0",
     "@types/eslint": "8.56.10",
     "@types/node": "20.14.10",
     "@types/react": "18.3.5",
@@ -42,6 +49,7 @@
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.11",
     "postcss": "8.4.45",
+    "postgres": "3.4.4",
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "0.6.6",
     "supabase": "1.192.5",
