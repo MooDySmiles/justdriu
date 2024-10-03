@@ -1,14 +1,14 @@
 ALTER TABLE IF EXISTS "profile"
   DROP "website",
   ADD "preferred_ship_address" text,
-  ADD "preferred_ship_hour" time;
+  ADD "preferred_ship_hour" time with time zone;
 
 CREATE TABLE "command" (
   "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "organizer" uuid,
   "food_provider_id" integer,
   "delivery_datetime" timestamp with time zone,
-  "end_hour" time,
+  "end_hour" time with time zone,
   "created_at" timestamp with time zone,
   "updated_at" timestamp with time zone,
   "delivery_address" text
@@ -51,10 +51,10 @@ CREATE TABLE "food_provider" (
   "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   "name" text,
   "address" text,
-  "open_hour_1" time,
-  "close_hour_1" time,
-  "open_hour_2" time,
-  "close_hour_2" time
+  "open_hour_1" time with time zone,
+  "close_hour_1" time with time zone,
+  "open_hour_2" time with time zone,
+  "close_hour_2" time with time zone
 );
 
 COMMENT ON COLUMN "dish"."description" IS 'Description of the dish';
