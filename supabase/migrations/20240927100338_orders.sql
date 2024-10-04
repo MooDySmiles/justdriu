@@ -76,3 +76,24 @@ ALTER TABLE "food_provider_dish" ADD CONSTRAINT "food_provider_dish_food_provide
 ALTER TABLE "command" ADD CONSTRAINT "order_organizer_fkey" FOREIGN KEY ("organizer") REFERENCES "profile" ("id");
 
 ALTER TABLE "command" ADD FOREIGN KEY ("food_provider_id") REFERENCES "food_provider" ("id");
+
+-- funzione che ritorna le comande dati i partecipanti alla comanda
+create or replace function public.command_by_participant (participants_id uuid)
+returns table (
+  "id" bigint,
+  "organizer" uuid,
+  "food_provider_id" integer,
+  "delivery_datetime" timestamp with time zone,
+  "end_hour" time with time zone,
+  "created_at" timestamp with time zone,
+  "updated_at" timestamp with time zone,
+  "delivery_address" text
+)
+as $$
+SELECT c.*
+FROM
+  command as c
+  inner JOIN "order" as o ON c.id = o.command_id
+where o.profile_id = $1
+group by c.id
+$$ language sql RETURNS NULL ON NULL INPUT;

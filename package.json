@@ -12,7 +12,7 @@
     "start": "next start",
     "supa.start": "supabase start",
     "supa.stop": "supabase stop",
-    "supa.reset": "supabase db reset",
+    "supa.reset": "supabase db reset && npm run supa.types && npm run supa.seed",
     "supa.types": "supabase gen types typescript --local > types/database.d.ts",
     "supa.seed": "npx @snaplet/seed sync && npx tsx seed.ts"
   },

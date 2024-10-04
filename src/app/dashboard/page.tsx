@@ -1,11 +1,17 @@
 import CommandCard from "@/components/command_card";
 import { getMyCommands } from "@/server/commands";
+import { getCommandByParticipant } from "@utils/supabase/api/command";
+import { getUserProfile } from "@utils/supabase/api/user";
+import { createClient } from "@utils/supabase/server";
 import Link from "next/link";
 import { type Tables } from "types/database";
 
 export default async function DashboardPage() {
   const commands = await getMyCommands();
-  
+
+  const client = createClient();
+  const { data: user } = await getUserProfile(client);
+  if (user) console.log(await getCommandByParticipant(client, user.id, false));
   return (
     <>
       <div className="flex flex-wrap gap-y-600 mobile:justify-between tablet:gap-x-600">
