@@ -1,5 +1,8 @@
-import { type SupabaseClient } from "@supabase/supabase-js";
-import { type Database, type TablesUpdate } from "types/database";
+import {
+  type PostgrestSingleResponse,
+  type SupabaseClient,
+} from "@supabase/supabase-js";
+import { type Database, type Tables, type TablesUpdate } from "types/database";
 
 /**
  * If not id given the function return info of current users
@@ -12,7 +15,7 @@ import { type Database, type TablesUpdate } from "types/database";
 export async function getUserProfile(
   client: SupabaseClient<Database>,
   id?: string,
-) {
+): Promise<PostgrestSingleResponse<Tables<"profile">>> {
   const userId = id ?? (await client.auth.getUser()).data.user?.id;
 
   if (!userId) throw new Error("User not authenticated");
@@ -29,11 +32,13 @@ export async function updateUserProfile(
   client: SupabaseClient<Database>,
   data: TablesUpdate<"profile">,
 ) {
-  const userId = (await client.auth.getUser()).data.user?.id;
+  const {
+    data: { user },
+  } = await client.auth.getUser();
 
-  if (!userId) throw new Error("User not authenticated");
+  if (!user?.id) throw new Error("User not authenticated");
 
-  return client
+  const result = client
     .from("profile")
     .update({
       avatar_url: data.avatar_url ?? null,
@@ -43,6 +48,8 @@ export async function updateUserProfile(
       updated_at: new Date().toISOString(),
       username: data.username ?? null,
     })
-    .eq("id", userId)
+    .eq("id", user.id)
     .throwOnError();
+
+  return result;
 }

@@ -3,6 +3,7 @@ import { getUserProfile } from "@utils/supabase/api/user";
 import { createClient } from "@utils/supabase/server";
 import Link from "next/link";
 import GenerateTextBtn from "./_components/generate_text_btn";
+import dayjs from "dayjs";
 
 export default async function CommandPage({
   params: { id: commandId },
@@ -38,7 +39,7 @@ export default async function CommandPage({
       {/* Date and coordinator */}
       <div className="flex flex-col">
         <mds-text variant={"title"} typography={"h3"}>
-          Ordine del {new Date(command.delivery_datetime!).toLocaleDateString("it")}
+          Ordine del {dayjs(command.delivery_datetime).format("DD/MM/YYYY HH:mm")}
         </mds-text>
         <mds-text variant={"info"} typography={"label"}>
           Coordinatore: {organizer.full_name}
@@ -66,14 +67,14 @@ export default async function CommandPage({
       </mds-text> */}
 
       <div className="flex gap-x-200 self-end">
+        {/* TODO this button navigate to add entry to the command (display menu) */}
+        <Link href={"menu"}>
+          <mds-button>Aggiungi piatto</mds-button>
+        </Link>
         {/* TODO show this button only when user is the coordinator */}
         {user.id === command.organizer && (
           <GenerateTextBtn user={user} command={command} />
         )}
-        {/* TODO this button navigate to add entry to the command (display menu) */}
-        <Link href={"menu"}>
-          <mds-button>Aggiungi</mds-button>
-        </Link>
       </div>
     </div>
   );
