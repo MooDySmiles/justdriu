@@ -60,7 +60,6 @@ const saveCommandScheme = z.object({
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function saveCommand(_: any, formData: FormData) {
-  console.log(formData);
   const client = createClient();
 
   const { data: user } = await getUserProfile(client);
