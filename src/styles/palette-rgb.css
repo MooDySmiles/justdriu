@@ -1,0 +1,44 @@
+
+:root {
+  --justdriu-01: 17 31 0;
+  --justdriu-02: 39 73 0;
+  --justdriu-03: 46 87 0;
+  --justdriu-04: 55 103 0;
+  --justdriu-05: 65 123 0;
+  --justdriu-06: 84 159 0;
+  --justdriu-07: 114 216 0;
+  --justdriu-08: 128 243 0;
+  --justdriu-09: 173 255 82;
+  --justdriu-10: 220 255 181;
+  --justdriu: 136 255 3;
+}
+
+:root.pref-theme-dark {
+  --justdriu-01: 174 255 84;
+  --justdriu-02: 108 204 0;
+  --justdriu-03: 97 185 0;
+  --justdriu-04: 87 164 0;
+  --justdriu-05: 75 141 0;
+  --justdriu-06: 57 107 0;
+  --justdriu-07: 34 65 0;
+  --justdriu-08: 24 46 0;
+  --justdriu-09: 16 31 0;
+  --justdriu-10: 9 17 0;
+  --justdriu: 136 255 3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root.pref-theme-system {
+    --justdriu-01: 174 255 84;
+    --justdriu-02: 108 204 0;
+    --justdriu-03: 97 185 0;
+    --justdriu-04: 87 164 0;
+    --justdriu-05: 75 141 0;
+    --justdriu-06: 57 107 0;
+    --justdriu-07: 34 65 0;
+    --justdriu-08: 24 46 0;
+    --justdriu-09: 16 31 0;
+    --justdriu-10: 9 17 0;
+    --justdriu: 136 255 3;
+  }
+}

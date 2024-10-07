@@ -26,7 +26,7 @@ export default async function DashboardPage() {
       <Link href="/dashboard/command/new">
         <mds-icon
           name="mi/outline/loupe"
-          class="absolute aspect-square w-1200 fill-[#72D800] mobile:bottom-2000 mobile:right-400 tablet:bottom-1000 tablet:right-1000"
+          class="absolute aspect-square w-1200 fill-justdriu-07 mobile:bottom-2000 mobile:right-400 tablet:bottom-1000 tablet:right-1000"
         />
       </Link>
     </>
