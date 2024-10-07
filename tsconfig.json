@@ -41,5 +41,5 @@
     "**/*.mjs",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "seed.config.ts", "seed.ts"]
+  "exclude": ["node_modules", "seed.config.ts", "seed.ts", "design-tokens"]
 }

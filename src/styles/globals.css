@@ -1,5 +1,21 @@
 @import "@maggioli-design-system/styles/dist/css/colors-rgb.css";
+@import 'palette-rgb.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* override default color used by components */
+:root {
+  --brand-maggioli-01: var(--justdriu-01);
+  --brand-maggioli-02: var(--justdriu-02);
+  --brand-maggioli-03: var(--justdriu-03);
+  --brand-maggioli-04: var(--justdriu-04);
+  --brand-maggioli-05: var(--justdriu-05);
+  --brand-maggioli-06: var(--justdriu-06);
+  --brand-maggioli-07: var(--justdriu-07);
+  --brand-maggioli-08: var(--justdriu-08);
+  --brand-maggioli-09: var(--justdriu-09);
+  --brand-maggioli-10: var(--justdriu-10);
+  --brand-maggioli: var(--justdriu);  
+}
