@@ -1,8 +1,6 @@
-import {
-  type PostgrestSingleResponse,
-  type SupabaseClient,
-} from "@supabase/supabase-js";
-import { type Database, type Tables, type TablesUpdate } from "types/database";
+import { type PostgrestSingleResponse } from "@supabase/supabase-js";
+import { type Tables, type TablesUpdate } from "types/database";
+import { type JustDriuClient } from "../client";
 
 /**
  * If not id given the function return info of current users
@@ -13,7 +11,7 @@ import { type Database, type Tables, type TablesUpdate } from "types/database";
  * @returns custom info of user
  */
 export async function getUserProfile(
-  client: SupabaseClient<Database>,
+  client: JustDriuClient,
   id?: string,
 ): Promise<PostgrestSingleResponse<Tables<"profile">>> {
   const userId = id ?? (await client.auth.getUser()).data.user?.id;
@@ -29,7 +27,7 @@ export async function getUserProfile(
 }
 
 export async function updateUserProfile(
-  client: SupabaseClient<Database>,
+  client: JustDriuClient,
   data: TablesUpdate<"profile">,
 ) {
   const {

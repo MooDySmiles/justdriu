@@ -72,7 +72,7 @@ const main = async () => {
     connect: { dish_type },
   });
 
-  await seed.food_provider_dish((x) => x(4), {
+  await seed.food_provider_dish((x) => x(14), {
     connect: {
       dish,
       food_provider,
@@ -100,4 +100,4 @@ const main = async () => {
   process.exit();
 };
 
-void main();
+main();

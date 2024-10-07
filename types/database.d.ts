@@ -316,6 +316,19 @@ export type Database = {
           delivery_address: string
         }[]
       }
+      menu: {
+        Args: {
+          food_provider_id: number
+        }
+        Returns: {
+          dish_id: number
+          type_id: number
+          type: string
+          name: string
+          description: string
+          price: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

@@ -92,8 +92,28 @@ returns table (
 as $$
 SELECT c.*
 FROM
-  command as c
-  inner JOIN "order" as o ON c.id = o.command_id
-where o.profile_id = $1
-group by c.id
+  command AS c
+  INNER JOIN "order" AS o ON c.id = o.command_id
+WHERE o.profile_id = $1
+GROUP BY c.id
 $$ language sql RETURNS NULL ON NULL INPUT;
+
+-- ritorna il menu dei piatti con i rispettivi prezzi dato il food_provider_id
+create or replace function public.menu (food_provider_id bigint)
+returns table (
+  "dish_id" bigint,
+  "type_id" bigint,
+  "type" text,
+  "name" text,
+  "description" text,
+  "price" float
+)
+as $$
+SELECT d.*, t.type, f.price
+FROM
+  dish as d
+  INNER JOIN dish_type AS t ON d.type = t.id
+  INNER JOIN food_provider_dish AS f ON f.dish_id = d.id
+WHERE f.food_provider_id = $1
+$$ language sql RETURNS NULL ON NULL INPUT;
+

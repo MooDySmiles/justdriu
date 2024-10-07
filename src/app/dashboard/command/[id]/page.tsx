@@ -7,9 +7,9 @@ import dayjs from "dayjs";
 
 export default async function CommandPage({
   params: { id: commandId },
-}: {
+}: Readonly<{
   params: { id: string };
-}) {
+}>) {
   const client = createClient();
 
   const { data: user } = await getUserProfile(client);
@@ -68,7 +68,7 @@ export default async function CommandPage({
 
       <div className="flex gap-x-200 self-end">
         {/* TODO this button navigate to add entry to the command (display menu) */}
-        <Link href={"menu"}>
+        <Link href={"../menu/"+command.food_provider_id}>
           <mds-button>Aggiungi piatto</mds-button>
         </Link>
         {/* TODO show this button only when user is the coordinator */}

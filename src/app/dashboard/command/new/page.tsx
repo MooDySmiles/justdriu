@@ -111,7 +111,7 @@ export default function NewCommandPage() {
             Annulla
           </mds-button>
         </Link>
-        <mds-button class="bg-[#72D800]">Salva</mds-button>
+        <mds-button>Salva</mds-button>
       </div>
     </form>
   );

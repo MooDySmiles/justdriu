@@ -1,8 +1,6 @@
-import {
-  type PostgrestError,
-  type SupabaseClient,
-} from "@supabase/supabase-js";
-import { type Tables, type Database, type TablesInsert } from "types/database";
+import { type PostgrestError } from "@supabase/supabase-js";
+import { type Tables, type TablesInsert } from "types/database";
+import { type JustDriuClient } from "../client";
 
 export type MyCommands = {
   organizer: Tables<"command">[] | null;
@@ -18,7 +16,7 @@ export type MyCommands = {
  * @returns
  */
 export function getCommands(
-  client: SupabaseClient<Database>,
+  client: JustDriuClient,
   ascending = false,
   all = false,
 ) {
@@ -32,7 +30,7 @@ export function getCommands(
 }
 
 export function getCommand(
-  client: SupabaseClient<Database>,
+  client: JustDriuClient,
   id: number,
   ascending = false,
 ) {
@@ -51,7 +49,7 @@ export function getCommand(
  * @returns commands
  */
 export function getCommandByOrganizer(
-  client: SupabaseClient<Database>,
+  client: JustDriuClient,
   userid: string,
   ascending = false,
   all = true,
@@ -73,7 +71,7 @@ export function getCommandByOrganizer(
  * @returns commands
  */
 export async function getCommandByParticipant(
-  client: SupabaseClient<Database>,
+  client: JustDriuClient,
   userid: string,
   all = true,
 ) {
@@ -93,7 +91,7 @@ export async function getCommandByParticipant(
  * @returns an object where organized represents
  */
 export async function getAllMyCommands(
-  client: SupabaseClient<Database>,
+  client: JustDriuClient,
   userid: string,
   all = true,
 ): Promise<MyCommands> {
@@ -109,7 +107,7 @@ export async function getAllMyCommands(
 }
 
 export async function newCommand(
-  client: SupabaseClient<Database>,
+  client: JustDriuClient,
   command: TablesInsert<"command">,
 ) {
   return client.from("command").insert([command]);

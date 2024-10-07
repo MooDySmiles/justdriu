@@ -1,8 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { type Database } from "types/database";
+import { type JustDriuClient } from "./client";
 
-export function createClient() {
+export function createClient(): JustDriuClient {
   const cookieStore = cookies();
 
   // Create a server's supabase client with newly configured cookie,
