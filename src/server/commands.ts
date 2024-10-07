@@ -1,12 +1,13 @@
 "use server";
 
+import { getAllMyCommands, newCommand, type MyCommands } from "@utils/supabase/api/command";
 import { getUserProfile } from "@utils/supabase/api/user";
 import { createClient } from "@utils/supabase/server";
 import { redirect } from "next/navigation";
 import { type Tables } from "types/database";
 import { z } from "zod";
 
-export async function getMyCommands(): Promise<Tables<"command">[]> {
+export async function getMyCommands(): Promise<MyCommands> {
   const client = createClient();
 
   const { data: user } = await getUserProfile(client);
@@ -14,15 +15,7 @@ export async function getMyCommands(): Promise<Tables<"command">[]> {
   if (!user) throw new Error("Unauthorized");
 
   // TODO retrieve commands where the user is the organizer OR where the user participate
-  const { data: commands, error } = await client
-    .from("command")
-    .select()
-    .eq("organizer", user.id)
-    .order("delivery_datetime", { ascending: false });
-
-  if (error) throw new Error(error.message);
-
-  return commands as Tables<"command">[];
+  return getAllMyCommands(client, user.id, true)
 }
 
 export async function getCommand(
@@ -55,6 +48,7 @@ const saveCommandScheme = z.object({
   commandAddress: z.string().min(1, {
     message: "Indirizzo di consegna deve essere almeno 1 carattere",
   }),
+  commandFoodProvider: z.number().min(1, {message: 'Selezionare un ristorante'}),
   endHour: z.string().time({ message: "Scadenza non è valido" }),
 });
 
@@ -70,6 +64,7 @@ export async function saveCommand(_: any, formData: FormData) {
     commandDate: formData.get("commandDate"),
     commandTime: `${formData.get("commandTime") as string}:00`,
     commandAddress: formData.get("commandAddress"),
+    commandFoodProvider: formData.get('commandFoodProvider'),
     endHour: `${formData.get("endHour") as string}:00`,
   });
 
@@ -88,7 +83,7 @@ export async function saveCommand(_: any, formData: FormData) {
   const end_hour = formData.get("endHour") as string;
   const createdUpdatedAt = new Date().toISOString();
 
-  const { error } = await client.from("command").insert([
+  const { error } = await newCommand(client,
     {
       organizer,
       food_provider_id: food_provider_id ?? 1,
@@ -98,7 +93,7 @@ export async function saveCommand(_: any, formData: FormData) {
       delivery_datetime,
       end_hour,
     },
-  ]);
+  );
 
   if (error) throw new Error(error.message);
 
