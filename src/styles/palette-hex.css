@@ -1,0 +1,44 @@
+
+:root {
+  --justdriu-01: #111f00;
+  --justdriu-02: #274900;
+  --justdriu-03: #2e5700;
+  --justdriu-04: #376700;
+  --justdriu-05: #417b00;
+  --justdriu-06: #549f00;
+  --justdriu-07: #72d800;
+  --justdriu-08: #80f300;
+  --justdriu-09: #adff52;
+  --justdriu-10: #dcffb5;
+  --justdriu: #88FF03;
+}
+
+:root.pref-theme-dark {
+  --justdriu-01: #aeff54;
+  --justdriu-02: #6ccc00;
+  --justdriu-03: #61b900;
+  --justdriu-04: #57a400;
+  --justdriu-05: #4b8d00;
+  --justdriu-06: #396b00;
+  --justdriu-07: #224100;
+  --justdriu-08: #182e00;
+  --justdriu-09: #101f00;
+  --justdriu-10: #091100;
+  --justdriu: #88FF03;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root.pref-theme-system {
+    --justdriu-01: #aeff54;
+    --justdriu-02: #6ccc00;
+    --justdriu-03: #61b900;
+    --justdriu-04: #57a400;
+    --justdriu-05: #4b8d00;
+    --justdriu-06: #396b00;
+    --justdriu-07: #224100;
+    --justdriu-08: #182e00;
+    --justdriu-09: #101f00;
+    --justdriu-10: #091100;
+    --justdriu: #88FF03;
+  }
+}
