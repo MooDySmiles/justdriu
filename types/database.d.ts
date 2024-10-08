@@ -322,10 +322,10 @@ export type Database = {
         }
         Returns: {
           dish_id: number
-          type_id: number
-          type: string
           name: string
           description: string
+          type_id: number
+          type: string
           price: number
         }[]
       }

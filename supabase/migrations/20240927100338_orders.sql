@@ -30,7 +30,7 @@ CREATE TABLE "order_dish" (
 
 CREATE TABLE "dish_type" (
   "id" bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  "type" text
+  "type" text UNIQUE
 );
 
 CREATE TABLE "dish" (
@@ -102,10 +102,10 @@ $$ language sql RETURNS NULL ON NULL INPUT;
 create or replace function public.menu (food_provider_id bigint)
 returns table (
   "dish_id" bigint,
-  "type_id" bigint,
-  "type" text,
   "name" text,
   "description" text,
+  "type_id" bigint,
+  "type" text,
   "price" float
 )
 as $$

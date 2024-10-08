@@ -9,7 +9,6 @@ export default async function DashboardPage() {
   const { organizer, participant, error } = await getMyCommands();
 
   const {data: commands_open, error: allCommandsError} = await getCommands(client, true)
-  console.log('commands open', commands_open);
   if (error) {
     return <div>{error.message}</div>;
   }

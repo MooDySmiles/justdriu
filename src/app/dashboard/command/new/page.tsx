@@ -67,6 +67,11 @@ export default function NewCommandPage() {
               </option>
             ))}
           </mds-input-select>
+          {state.errors.commandFoodProvider && (
+            <mds-text class="text-status-error">
+              {state.errors.commandFoodProvider}
+            </mds-text>
+          )}
         </div>
         <div className="flex flex-col">
           <mds-text class="font-semibold">Orario consegna</mds-text>

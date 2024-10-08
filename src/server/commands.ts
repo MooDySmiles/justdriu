@@ -48,7 +48,7 @@ const saveCommandScheme = z.object({
   commandAddress: z.string().min(1, {
     message: "Indirizzo di consegna deve essere almeno 1 carattere",
   }),
-  commandFoodProvider: z.number().min(1, {message: 'Selezionare un ristorante'}),
+  commandFoodProvider: z.string().min(1, {message: 'Selezionare un ristorante'}),
   endHour: z.string().time({ message: "Scadenza non è valido" }),
 });
 
@@ -83,7 +83,7 @@ export async function saveCommand(_: any, formData: FormData) {
   const end_hour = formData.get("endHour") as string;
   const createdUpdatedAt = new Date().toISOString();
 
-  const { error } = await newCommand(client,
+  const { data: newC, error } = await newCommand(client,
     {
       organizer,
       food_provider_id: food_provider_id ?? 1,
@@ -97,5 +97,5 @@ export async function saveCommand(_: any, formData: FormData) {
 
   if (error) throw new Error(error.message);
 
-  redirect("/dashboard");
+  redirect(`/dashboard/command/${newC[0]?.id}`);
 }

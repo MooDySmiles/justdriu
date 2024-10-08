@@ -10,18 +10,21 @@ import "@fontsource/roboto/900.css";
 
 import { defineCustomElements as dceMdsAvatar } from "@maggioli-design-system/mds-avatar/loader";
 import { defineCustomElements as dceMdsButton } from "@maggioli-design-system/mds-button/loader";
+import { defineCustomElements as dceMdsCard } from "@maggioli-design-system/mds-card/loader";
 import { defineCustomElements as dceMdsCardContent } from "@maggioli-design-system/mds-card-content/loader";
 import { defineCustomElements as dceMdsCardFooter } from "@maggioli-design-system/mds-card-footer/loader";
 import { defineCustomElements as dceMdsCardHeader } from "@maggioli-design-system/mds-card-header/loader";
-import { defineCustomElements as dceMdsCard } from "@maggioli-design-system/mds-card/loader";
 import { defineCustomElements as dceMdsHr } from "@maggioli-design-system/mds-hr/loader";
 import { defineCustomElements as dceMdsIcon } from "@maggioli-design-system/mds-icon/loader";
+import { defineCustomElements as dceMdsImg } from "@maggioli-design-system/mds-img/loader";
 import { defineCustomElements as dceMdsInput } from "@maggioli-design-system/mds-input/loader";
 import { defineCustomElements as dceMdsInputSelect } from "@maggioli-design-system/mds-input-select/loader";
 import { defineCustomElements as dceMdsInputTip } from "@maggioli-design-system/mds-input-tip/loader";
 import { defineCustomElements as dceMdsInputTipItem } from "@maggioli-design-system/mds-input-tip-item/loader";
-import { defineCustomElements as dceMdsImg } from "@maggioli-design-system/mds-img/loader";
+import { defineCustomElements as dceMdsTab } from "@maggioli-design-system/mds-tab/loader";
+import { defineCustomElements as dceMdsTabItem } from "@maggioli-design-system/mds-tab-item/loader";
 import { defineCustomElements as dceMdsText } from "@maggioli-design-system/mds-text/loader";
+
 
 dceMdsAvatar();
 dceMdsButton();
@@ -31,9 +34,11 @@ dceMdsCardFooter();
 dceMdsCardHeader();
 dceMdsHr();
 dceMdsIcon();
+dceMdsImg();
 dceMdsInput();
 dceMdsInputSelect();
 dceMdsInputTip();
 dceMdsInputTipItem();
-dceMdsImg();
+dceMdsTab();
+dceMdsTabItem();
 dceMdsText();

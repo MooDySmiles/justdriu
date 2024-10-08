@@ -110,5 +110,5 @@ export async function newCommand(
   client: JustDriuClient,
   command: TablesInsert<"command">,
 ) {
-  return client.from("command").insert([command]);
+  return client.from("command").insert([command]).select();
 }
