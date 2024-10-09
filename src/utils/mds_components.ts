@@ -21,10 +21,14 @@ import { defineCustomElements as dceMdsInput } from "@maggioli-design-system/mds
 import { defineCustomElements as dceMdsInputSelect } from "@maggioli-design-system/mds-input-select/loader";
 import { defineCustomElements as dceMdsInputTip } from "@maggioli-design-system/mds-input-tip/loader";
 import { defineCustomElements as dceMdsInputTipItem } from "@maggioli-design-system/mds-input-tip-item/loader";
+import { defineCustomElements as dceMdsModal } from "@maggioli-design-system/mds-modal/loader";
 import { defineCustomElements as dceMdsTab } from "@maggioli-design-system/mds-tab/loader";
+import { defineCustomElements as dceMdsTable } from "@maggioli-design-system/mds-table/loader";
+import { defineCustomElements as dceMdsTableHeader } from "@maggioli-design-system/mds-table-header/loader";
+import { defineCustomElements as dceMdsTableRow } from "@maggioli-design-system/mds-table-row/loader";
+import { defineCustomElements as dceMdsTableCell } from "@maggioli-design-system/mds-table-cell/loader";
 import { defineCustomElements as dceMdsTabItem } from "@maggioli-design-system/mds-tab-item/loader";
 import { defineCustomElements as dceMdsText } from "@maggioli-design-system/mds-text/loader";
-
 
 dceMdsAvatar();
 dceMdsButton();
@@ -39,6 +43,11 @@ dceMdsInput();
 dceMdsInputSelect();
 dceMdsInputTip();
 dceMdsInputTipItem();
+dceMdsModal();
 dceMdsTab();
+dceMdsTable();
+dceMdsTableHeader();
+dceMdsTableRow();
+dceMdsTableCell();
 dceMdsTabItem();
 dceMdsText();

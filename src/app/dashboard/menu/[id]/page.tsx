@@ -1,4 +1,5 @@
 import DishPage from "@/components/command/dish_page";
+import { Summary } from "@/components/command/summary";
 import { getDishTypeForProvider, getMenu } from "@utils/supabase/api/menu";
 import { createClient } from "@utils/supabase/server";
 import { type Tables } from "types/database";
@@ -24,14 +25,14 @@ export default async function MenuPage({
     <>
       <div className="flex justify-between">
         <mds-text typography="h2">Menu</mds-text>
-        <mds-button variant="success">Ordina</mds-button>
+        <Summary dishs={menu}></Summary>
       </div>
 
       {!tError ? (
         <mds-tab>
-          {dishType.map((type) => {
+          {dishType.map((type, index) => {
             return (
-              <mds-tab-item key={type.id} id={type.id.toString()}>
+              <mds-tab-item key={type.id} id={type.id.toString()} selected={index===0}>
                 {type.type}
               </mds-tab-item>
             );
